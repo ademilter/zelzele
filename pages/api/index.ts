@@ -1,4 +1,4 @@
-import { parse } from "node-html-parser";
+import { parse } from "muninn";
 import { NextRequest } from "next/server";
 
 export const config = {
@@ -10,23 +10,32 @@ export default async function handler(req: NextRequest) {
     const response = await fetch(
       "https://deprem.afad.gov.tr/last-earthquakes.html"
     );
-    const data = await response.text();
+    const content = await response.text();
 
-    const root = parse(data);
-    const table = root.querySelector("table tbody");
-
-    const earthquakes: Earthquake[] = [];
-
-    table?.childNodes.forEach((row) => {
-      const data = row.childNodes.map((el) => el.text);
-      const earthquake = new Earthquake(...data);
-      earthquakes.push(earthquake);
+    // https://github.com/aykutkardas/awesome-muninn/blob/main/configs/tr-last-earthquakes.md
+    const data = parse(content, {
+      selector: ".content-table tbody tr | array",
+      schema: {
+        id: "td:nth-child(8) | number",
+        date: "td:nth-child(1)",
+        latitude: "td:nth-child(2) | float",
+        longitude: "td:nth-child(3) | float",
+        depth: {
+          schema: {
+            value: "td:nth-child(4) | float",
+            unit: { fill: "km" },
+          },
+        },
+        type: "td:nth-child(5)",
+        magnitude: "td:nth-child(6) | float",
+        location: "td:nth-child(7)",
+      },
     });
 
     return new Response(
       JSON.stringify({
         lastUpdate: new Date().toISOString(),
-        dats: earthquakes,
+        data,
       }),
       {
         status: 200,
