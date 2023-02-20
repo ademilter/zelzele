@@ -1,6 +1,6 @@
 import "@/styles/globals.css";
 
-import AnalyticsWrapper from "./analytics";
+import AnalyticsWrapper from "../components/analytics";
 import { Inter } from "@next/font/google";
 
 const inter = Inter({
