@@ -11,11 +11,9 @@ export default function List() {
 
   const fetchData = async () => {
     const res = await fetch("/api");
-    const { data } = await res.json();
-    if (res.ok) {
-      setData(data);
-    }
+    const data = await res.json();
     console.log(data);
+    setData(data);
   };
 
   React.useEffect(() => {

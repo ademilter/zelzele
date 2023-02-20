@@ -51,25 +51,3 @@ export default async function handler(req: NextRequest) {
     return new Response("Something went wrong", { status: 500 });
   }
 }
-
-class Earthquake {
-  tarih: string;
-  enlem: string;
-  boylam: string;
-  derinlik: string;
-  tip: string;
-  buyukluk: string;
-  yer: string;
-  id: string;
-
-  constructor(...props: string[]) {
-    this.buyukluk = props[5];
-    this.yer = props[6];
-    this.tarih = new Date(props[0]).toISOString();
-    this.derinlik = props[3];
-    this.enlem = props[1];
-    this.boylam = props[2];
-    this.tip = props[4];
-    this.id = props[7];
-  }
-}

@@ -5,25 +5,25 @@ import { cx } from "@/lib/utils";
 import { DateTime } from "luxon";
 
 export interface RowProps {
-  boylam: string;
-  buyukluk: string;
-  derinlik: string;
-  enlem: string;
-  id: string;
-  tarih: string;
-  tip: string;
-  yer: string;
+  date: string;
+  depth: { value: number; unit: string };
+  id: number;
+  latitude: number;
+  location: string;
+  longitude: number;
+  magnitude: number;
+  type: string;
 }
 
 export default function Row({
-  boylam,
-  buyukluk,
-  derinlik,
-  enlem,
+  date,
+  depth,
   id,
-  tarih,
-  tip,
-  yer,
+  latitude,
+  location,
+  longitude,
+  magnitude,
+  type,
 }: RowProps) {
   const styleContainer = {
     "1": "bg-zinc-100 text-zinc-900", // 1-1,9
@@ -36,14 +36,14 @@ export default function Row({
   };
 
   const buyuklukInt = Math.floor(
-    Number(buyukluk)
+    magnitude
   ).toString() as keyof typeof styleContainer;
 
-  const yerDistrict = yer.split(" ")[0].trim();
-  let yerCity = yer.split(" ")[1].trim();
+  const yerDistrict = location.split(" ")[0].trim();
+  let yerCity = location.split(" ")[1].trim();
   yerCity = yerCity.replace("(", "").replace(")", "");
 
-  const date = DateTime.fromISO(tarih).toRelative({
+  const relativeDate = DateTime.fromSQL(date).toRelative({
     locale: "tr",
   });
 
@@ -51,13 +51,13 @@ export default function Row({
     <div className={cx("p-6", styleContainer[buyuklukInt])}>
       <div className="mx-auto flex max-w-screen-md items-baseline gap-6">
         <div className="rounded-xl bg-black bg-opacity-5 px-2 py-1 text-4xl font-bold tabular-nums">
-          {buyukluk}
+          {magnitude}
         </div>
         <div className="flex flex-col">
           <h3 className="text-4xl font-bold">{yerCity}</h3>
           <h5 className="text-2xl opacity-60">{yerDistrict}</h5>
-          <time className="mt-0.5 flex opacity-60" dateTime={tarih}>
-            {date}
+          <time className="mt-0.5 flex opacity-60" dateTime={date}>
+            {relativeDate}
           </time>
         </div>
       </div>
