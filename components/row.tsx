@@ -48,14 +48,14 @@ export default function Row({
   });
 
   return (
-    <div className={cx("p-6", styleContainer[buyuklukInt])}>
-      <div className="mx-auto flex max-w-screen-md items-baseline gap-6">
-        <div className="rounded-xl bg-black bg-opacity-5 px-2 py-1 text-4xl font-bold tabular-nums">
+    <div className={cx("p-4 md:p-6", styleContainer[buyuklukInt])}>
+      <div className="mx-auto flex max-w-screen-md items-baseline gap-4 md:gap-6">
+        <div className="rounded-xl bg-black bg-opacity-5 px-2 py-1 text-2xl font-bold tabular-nums md:text-4xl">
           {magnitude}
         </div>
         <div className="flex flex-col">
-          <h3 className="text-4xl font-bold">{yerCity}</h3>
-          <h5 className="text-2xl opacity-60">{yerDistrict}</h5>
+          <h3 className="text-2xl font-bold md:text-4xl">{yerCity}</h3>
+          <h5 className="text-xl opacity-60 md:text-2xl">{yerDistrict}</h5>
           <time className="mt-0.5 flex opacity-60" dateTime={date}>
             {relativeDate}
           </time>
