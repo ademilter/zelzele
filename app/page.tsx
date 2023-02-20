@@ -1,3 +1,5 @@
-export default function Page() {
-  return <h1>Hello, Next.js!</h1>;
+import List from "@/components/list";
+
+export default function Index() {
+  return <List />;
 }
