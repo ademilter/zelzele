@@ -35,7 +35,7 @@ export default function Row({
     "7": "bg-red-100 text-red-900", // 7+
   };
 
-  const buyuklukInt = Math.floor(
+  const magnitudeFloor = Math.floor(
     magnitude
   ).toString() as keyof typeof styleContainer;
 
@@ -48,10 +48,10 @@ export default function Row({
   });
 
   return (
-    <div className={cx("p-4 md:p-6", styleContainer[buyuklukInt])}>
+    <div className={cx("p-4 md:p-6", styleContainer[magnitudeFloor])}>
       <div className="mx-auto flex max-w-screen-md items-baseline gap-4 md:gap-6">
         <div className="rounded-xl bg-black bg-opacity-5 px-2 py-1 text-2xl font-bold tabular-nums md:text-4xl">
-          {magnitude}
+          {magnitude.toFixed(1)}
         </div>
         <div className="flex flex-col">
           <h3 className="text-2xl font-bold md:text-4xl">{yerCity}</h3>
