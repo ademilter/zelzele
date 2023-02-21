@@ -25,9 +25,9 @@ export default function Filter({
   loading = false,
 }: AllFilterProps) {
   return (
-    <div className="fixed inset-x-0 bottom-0 z-50 flex items-center justify-center bg-gradient-to-t from-white pt-10 pb-10">
+    <div className="fixed inset-x-0 bottom-0 z-50 flex items-center justify-center bg-gradient-to-t from-white pt-20 pb-10">
       <div className="flex flex-nowrap items-center gap-3">
-        <div className="flex h-12 items-center gap-2 rounded-full bg-white shadow-lg">
+        <div className="flex h-12 items-center rounded-full bg-white p-1 shadow-lg">
           {[1, 2, 3, 4, 5].map((i) => {
             const isSelected = filter.hide === i;
             return (
@@ -35,7 +35,7 @@ export default function Filter({
                 key={i}
                 type="button"
                 className={cx(
-                  "h-full px-3 ",
+                  "h-full cursor-pointer px-4",
                   "first:rounded-l-full first:pl-5",
                   "last:rounded-r-full last:pr-5",
                   {
@@ -53,7 +53,7 @@ export default function Filter({
 
         <button
           className={cx(
-            "flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-lg",
+            "flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-white shadow-lg",
             loading && "opacity-50"
           )}
           onClick={onRefresh}
