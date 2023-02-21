@@ -1,10 +1,10 @@
 "use client";
 
 import * as React from "react";
+import { DateTime } from "luxon";
+import { AnimatePresence } from "framer-motion";
 import Row, { ItemProps } from "@/components/row";
 import Filter, { FilterProps } from "@/components/filter";
-import { AnimatePresence } from "framer-motion";
-import { DateTime } from "luxon";
 import Day from "@/components/day";
 
 export default function List() {
@@ -38,7 +38,7 @@ export default function List() {
     } catch (e) {
       console.error(e);
     } finally {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      await new Promise((resolve) => setTimeout(resolve, 600));
       setLoading(false);
     }
   };
