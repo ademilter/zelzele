@@ -15,7 +15,6 @@ export default function List() {
   const [filter, setFilter] = React.useState<FilterProps>({ hide: 2 });
   const [loading, setLoading] = React.useState(false);
 
-  // group by day
   const groupByDay = data.data.reduce((acc, row) => {
     const date = DateTime.fromSQL(row.date, {
       zone: "Europe/Istanbul",
@@ -39,6 +38,7 @@ export default function List() {
     } catch (e) {
       console.error(e);
     } finally {
+      await new Promise((resolve) => setTimeout(resolve, 1000));
       setLoading(false);
     }
   };
