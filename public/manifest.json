@@ -2,7 +2,7 @@
   "short_name": "Zelzele",
   "name": "Zelzele",
   "description": "Türkiye sınırları içindeki olan son 100 deprem bilgisini gösterir.",
-  "theme_color": "#ffffff",
+  "theme_color": "#000000",
   "background_color": "#ffffff",
   "display": "standalone",
   "scope": "/",

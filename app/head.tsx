@@ -29,7 +29,7 @@ export default function Head() {
 
       <link rel="manifest" href="/manifest.json" />
       <link rel="apple-touch-icon" href="/icons-192.png" />
-      <meta name="theme-color" content="#ffffff" />
+      <meta name="theme-color" content="#000000" />
     </>
   );
 }
