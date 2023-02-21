@@ -17,7 +17,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="tr" className={`"scroll-smooth" ${inter.variable}`}>
-      <body className="bg-white text-zinc-600 antialiased dark:bg-zinc-900 dark:text-zinc-400">
+      <body className="bg-white leading-normal text-zinc-600 antialiased dark:bg-zinc-900 dark:text-zinc-400">
         <main>{children}</main>
 
         <AnalyticsWrapper />
