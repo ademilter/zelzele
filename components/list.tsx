@@ -1,18 +1,18 @@
 "use client";
 
 import * as React from "react";
-import Row, { ItemProps } from "@/components/row";
-import Filter, { FilterProps } from "@/components/filter";
-import { AnimatePresence } from "framer-motion";
-import { DateTime } from "luxon";
+import Row, {ItemProps} from "@/components/row";
+import Filter, {FilterProps} from "@/components/filter";
+import {AnimatePresence} from "framer-motion";
+import {DateTime} from "luxon";
 import Day from "@/components/day";
 
 export default function List() {
   const [data, setData] = React.useState<{
     lastUpdate: string;
     data: ItemProps[];
-  }>({ lastUpdate: "", data: [] });
-  const [filter, setFilter] = React.useState<FilterProps>({ hide: 2 });
+  }>({lastUpdate: "", data: []});
+  const [filter, setFilter] = React.useState<FilterProps>({hide: 2});
 
   const hasData = data.data.length > 0;
 
@@ -20,7 +20,7 @@ export default function List() {
   const groupByDay = data.data.reduce((acc, row) => {
     const date = DateTime.fromSQL(row.date, {
       zone: "Europe/Istanbul",
-      locale: "tr",
+      locale: "tr"
     })
       .startOf("day")
       .toISODate();
@@ -75,8 +75,7 @@ export default function List() {
           <p className="opacity-60">Son gerçekleşen 100 deprem içinde</p>
         </div>
       )}
-
-      <Filter filter={filter} setFilter={setFilter} />
+      <Filter filter={filter} setFilter={setFilter} fetchData={fetchData} />
     </div>
   );
 }
