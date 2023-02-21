@@ -28,7 +28,13 @@ export default async function handler(req: NextRequest) {
         },
         type: "td:nth-child(5)",
         magnitude: "td:nth-child(6) | float",
-        location: "td:nth-child(7)",
+        location: {
+          selector: "td:nth-child(7)",
+          schema: {
+            district: { regex: /(.*)(?=\s\(.*\))/ },
+            city: { regex: /(?<=\s\()(.+)(?=\))/ },
+          },
+        },
       },
     });
 

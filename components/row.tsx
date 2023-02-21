@@ -10,7 +10,10 @@ export interface RowProps {
   depth: { value: number; unit: string };
   id: number;
   latitude: number;
-  location: string;
+  location: {
+    district: string;
+    city: string;
+  };
   longitude: number;
   magnitude: number;
   type: string;
@@ -62,11 +65,9 @@ export default function Row({
     magnitude
   ).toString() as keyof typeof styleContainer;
 
-  const yerDistrict = location.split(" ")[0].trim();
-  let yerCity = location.split(" ")[1].trim();
-  yerCity = yerCity.replace("(", "").replace(")", "");
-
-  const relativeDate = DateTime.fromSQL(date, { zone: "Europe/Istanbul" }).toRelative({
+  const relativeDate = DateTime.fromSQL(date, {
+    zone: "Europe/Istanbul",
+  }).toRelative({
     locale: "tr",
   });
 
@@ -78,8 +79,10 @@ export default function Row({
             {magnitude.toFixed(1)}
           </div>
           <div className="flex flex-col">
-            <h3 className="text-2xl font-bold md:text-4xl">{yerCity}</h3>
-            <h5 className="text-xl opacity-60 md:text-2xl">{yerDistrict}</h5>
+            <h3 className="text-2xl font-bold md:text-4xl">{location.city}</h3>
+            <h5 className="text-xl opacity-60 md:text-2xl">
+              {location.district}
+            </h5>
             <time className="mt-0.5 flex opacity-60" dateTime={date}>
               {relativeDate}
             </time>
