@@ -36,11 +36,18 @@ export default function List() {
 
   return (
     <div className="space-y-1">
-      <AnimatePresence mode={"popLayout"}>
-        {filterData.map((row) => (
-          <Row key={row.id} {...row} />
-        ))}
-      </AnimatePresence>
+      {filterData.length > 0 ? (
+        <AnimatePresence mode={"popLayout"}>
+          {filterData.map((row) => (
+            <Row key={row.id} {...row} />
+          ))}
+        </AnimatePresence>
+      ) : (
+        <div className="py-20 text-center">
+          <h4 className="text-lg">Bu büyüklükte deprem olmadı</h4>
+          <p className="opacity-60">Son gerçekleşen 100 deprem içinde</p>
+        </div>
+      )}
       <Filter filter={filter} setFilter={setFilter} />
     </div>
   );
