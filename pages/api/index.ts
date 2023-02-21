@@ -30,9 +30,15 @@ export default async function handler(req: NextRequest) {
         magnitude: "td:nth-child(6) | float",
         location: {
           selector: "td:nth-child(7)",
-          schema: {
-            district: { regex: /(.*)(?=\s\(.*\))/ },
-            city: { regex: /(?<=\s\()(.+)(?=\))/ },
+          transform: (value) => {
+            const [district, city] = (value as string)
+              .replace(/([()])/g, "")
+              .split(" ");
+
+            return {
+              district,
+              city,
+            };
           },
         },
       },
