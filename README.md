@@ -1,4 +1,4 @@
-# [zelzele.vercel.app](zelzele.vercel.app)
+# Zelzele
 
 Türkiye sınırları içinde olan son 100 deprem bilgisini gösterir.
 
