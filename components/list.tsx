@@ -35,7 +35,7 @@ export default function List() {
   }, [filter]);
 
   return (
-    <div className="space-y-0.5">
+    <div className="space-y-1">
       <AnimatePresence mode={"popLayout"}>
         {filterData.map((row) => (
           <Row key={row.id} {...row} />

@@ -27,13 +27,13 @@ export default function Row({
   type,
 }: RowProps) {
   const styleContainer = {
-    "1": "bg-zinc-100 text-zinc-900", // 1-1,9
-    "2": "bg-zinc-100 text-zinc-900", // 2-2,9
-    "3": "bg-blue-100 text-blue-900", // 3-3,9
-    "4": "bg-yellow-100 text-yellow-900", // 4-4,9
-    "5": "bg-amber-100 text-amber-900", // 5-5,9
-    "6": "bg-orange-100 text-orange-900", // 6-6,9
-    "7": "bg-red-100 text-red-900", // 7+
+    "1": "from-zinc-100 bg-gradient-to-l text-zinc-900", // 1-1,9
+    "2": "from-zinc-100 bg-gradient-to-l text-zinc-900", // 2-2,9
+    "3": "from-blue-100 bg-gradient-to-l text-blue-900", // 3-3,9
+    "4": "from-yellow-100 bg-gradient-to-l text-yellow-900", // 4-4,9
+    "5": "from-amber-100 bg-gradient-to-l text-amber-900", // 5-5,9
+    "6": "from-orange-100 bg-gradient-to-l text-orange-900", // 6-6,9
+    "7": "from-red-100 bg-gradient-to-l text-red-900", // 7+
   };
 
   const animations = {
