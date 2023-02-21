@@ -66,7 +66,9 @@ export default function Row({
   let yerCity = location.split(" ")[1].trim();
   yerCity = yerCity.replace("(", "").replace(")", "");
 
-  const relativeDate = DateTime.fromSQL(date, { zone: "Europe/Istanbul" }).toRelative({
+  const relativeDate = DateTime.fromSQL(date, {
+    zone: "Europe/Istanbul",
+  }).toRelative({
     locale: "tr",
   });
 
