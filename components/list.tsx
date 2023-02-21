@@ -48,7 +48,7 @@ export default function List() {
           <p className="opacity-60">Son gerçekleşen 100 deprem içinde</p>
         </div>
       )}
-      <Filter filter={filter} setFilter={setFilter} />
+      <Filter filter={filter} setFilter={setFilter} fetchData={fetchData} />
     </div>
   );
 }
