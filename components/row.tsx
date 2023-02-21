@@ -64,18 +64,13 @@ export default function Row({ date, location, magnitude }: RowProps) {
 
   return (
     <motion.article {...animations}>
-      <div
-        className={cx(
-          "px-4 py-3 leading-tight md:p-6",
-          styleContainer[magnitudeFloor]
-        )}
-      >
+      <div className={cx("p-4 md:p-6", styleContainer[magnitudeFloor])}>
         <div className="mx-auto flex max-w-screen-md items-baseline gap-4 md:gap-6">
-          <div className="rounded-xl bg-black bg-opacity-5 px-2 py-1 text-2xl font-bold tabular-nums md:text-4xl">
+          <div className="rounded-xl bg-black bg-opacity-5 px-2 py-1 text-xl font-bold tabular-nums md:text-4xl">
             {magnitude.toFixed(1)}
           </div>
           <div className="flex flex-col">
-            <h3 className="text-2xl font-bold md:text-4xl">{location.city}</h3>
+            <h3 className="text-xl font-bold md:text-4xl">{location.city}</h3>
             <h5 className="text-xl opacity-60 md:text-2xl">
               {location.district}
             </h5>
