@@ -5,7 +5,8 @@ import { cx } from "@/lib/utils";
 import { DateTime } from "luxon";
 import { motion } from "framer-motion";
 
-export interface RowProps {
+export interface ItemProps {
+  hide: number;
   date: string;
   depth: { value: number; unit: string };
   id: number;
@@ -19,7 +20,12 @@ export interface RowProps {
   type: string;
 }
 
-export default function Row({ date, location, magnitude }: RowProps) {
+export interface RowProps {
+  isShow: boolean;
+  item: ItemProps;
+}
+
+export default function Row({ item, isShow }: RowProps) {
   const styleContainer = {
     "1": "from-zinc-100 bg-gradient-to-l text-zinc-900", // 1-1,9
     "2": "from-zinc-100 bg-gradient-to-l text-zinc-900", // 2-2,9
@@ -32,50 +38,52 @@ export default function Row({ date, location, magnitude }: RowProps) {
 
   const animations = {
     layout: true,
-    animate: {
-      scale: 1,
-      opacity: 1,
-      transition: {
-        ease: "easeIn",
-        duration: 0.13,
-        delayChildren: 0.3,
-        staggerChildren: 0.1,
+    initial: "out",
+    animate: isShow ? "in" : "out",
+    variants: {
+      in: {
+        opacity: 1,
+      },
+      out: {
+        opacity: 0,
       },
     },
-    exit: {
-      scale: 0.9,
-      opacity: 0,
-      transition: {
-        ease: "easeOut",
-        duration: 0.13,
-      },
+    transition: {
+      duration: 0.23,
     },
   };
 
   const magnitudeFloor = Math.floor(
-    magnitude
+    item.magnitude
   ).toString() as keyof typeof styleContainer;
 
-  const relativeDate = DateTime.fromSQL(date, {
+  const dateTime = DateTime.fromSQL(item.date, {
     zone: "Europe/Istanbul",
-  }).toRelative({
     locale: "tr",
   });
 
   return (
-    <motion.article {...animations}>
-      <div className={cx("p-4 md:p-6", styleContainer[magnitudeFloor])}>
+    <motion.article
+      {...animations}
+      className={cx("z-10 w-full pb-1", isShow ? "relative" : "absolute z-0")}
+    >
+      <div
+        className={cx("bg-white p-4 md:p-6", styleContainer[magnitudeFloor])}
+      >
         <div className="mx-auto flex max-w-screen-md items-baseline gap-4 md:gap-6">
           <div className="rounded-xl bg-black bg-opacity-5 px-2 py-1 text-xl font-bold tabular-nums md:text-4xl">
-            {magnitude.toFixed(1)}
+            {item.magnitude.toFixed(1)}
           </div>
           <div className="flex flex-col">
-            <h3 className="text-xl font-bold md:text-4xl">{location.city}</h3>
+            <h3 className="text-xl font-bold md:text-4xl">
+              {item.location.city}
+            </h3>
             <h5 className="text-xl opacity-60 md:text-2xl">
-              {location.district}
+              {item.location.district}
             </h5>
-            <time className="mt-0.5 flex opacity-60" dateTime={date}>
-              {relativeDate}
+            <time className="mt-0.5 flex opacity-60" dateTime={item.date}>
+              {dateTime.toFormat("HH:mm")} (
+              {dateTime.toRelative({ style: "short" })})
             </time>
           </div>
         </div>
