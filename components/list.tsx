@@ -18,7 +18,12 @@ export default function List() {
 
   // group by day
   const groupByDay = data.data.reduce((acc, row) => {
-    const date = DateTime.fromSQL(row.date).startOf("day").toISODate();
+    const date = DateTime.fromSQL(row.date, {
+      zone: "Europe/Istanbul",
+      locale: "tr",
+    })
+      .startOf("day")
+      .toISODate();
     if (!acc[date]) {
       acc[date] = [];
     }
