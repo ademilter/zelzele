@@ -6,7 +6,6 @@ import { DateTime } from "luxon";
 import { motion } from "framer-motion";
 
 export interface ItemProps {
-  hide: number;
   date: string;
   depth: { value: number; unit: string };
   id: number;
@@ -71,20 +70,25 @@ export default function Row({ item, isShow }: RowProps) {
         className={cx("bg-white p-4 md:p-6", styleContainer[magnitudeFloor])}
       >
         <div className="mx-auto flex max-w-screen-md items-baseline gap-4 md:gap-6">
-          <div className="rounded-xl bg-black bg-opacity-5 px-2 py-1 text-xl font-bold tabular-nums md:text-4xl">
+          <div className="rounded-xl bg-black bg-opacity-5 px-2 py-1 text-xl font-bold tabular-nums md:text-3xl">
             {item.magnitude.toFixed(1)}
           </div>
           <div className="flex flex-col">
-            <h3 className="text-xl font-bold md:text-4xl">
+            <h3 className="text-xl font-bold md:text-3xl">
               {item.location.city}
             </h3>
             <h5 className="text-xl opacity-60 md:text-2xl">
               {item.location.district}
             </h5>
-            <time className="mt-0.5 flex opacity-60" dateTime={item.date}>
-              {dateTime.toFormat("HH:mm")} (
-              {dateTime.toRelative({ style: "short" })})
-            </time>
+            <div className="mt-0.5 flex items-center gap-1.5 opacity-60">
+              <span>
+                {item.depth.value} {item.depth.unit}
+              </span>
+              <span className="opacity-40">/</span>
+              <time dateTime={item.date}>{dateTime.toFormat("HH:mm")}</time>
+              <span className="opacity-40">/</span>
+              <span>{dateTime.toRelative()}</span>
+            </div>
           </div>
         </div>
       </div>

@@ -44,8 +44,8 @@ export default function Filter({
                 )}
                 onClick={() => setFilter({ hide: i })}
               >
-                {/*{isSelected && <>&gt;</>}*/}
-                {i}
+                {isSelected && i !== 1 && <>&gt;</>}
+                {i === 1 ? "Tümü" : i}
               </button>
             );
           })}

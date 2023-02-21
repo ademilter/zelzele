@@ -56,7 +56,7 @@ export default function List() {
   }, [filter]);
 
   return (
-    <div className="">
+    <div className="pb-40">
       {data.data.length > 0 ? (
         <AnimatePresence mode={"popLayout"}>
           {Object.keys(groupByDay).map((key) => {
