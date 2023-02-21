@@ -6,6 +6,7 @@ import Filter, {FilterProps} from "@/components/filter";
 import {AnimatePresence} from "framer-motion";
 import {DateTime} from "luxon";
 import Day from "@/components/day";
+import Loading from "@/app/loading";
 
 export default function List() {
   const [data, setData] = React.useState<{
@@ -13,6 +14,7 @@ export default function List() {
     data: ItemProps[];
   }>({lastUpdate: "", data: []});
   const [filter, setFilter] = React.useState<FilterProps>({hide: 2});
+  const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
   const hasData = data.data.length > 0;
 
@@ -32,9 +34,11 @@ export default function List() {
   }, {} as Record<string, ItemProps[]>);
 
   const fetchData = async () => {
+    setIsLoading(true);
     const res = await fetch("/api");
     const data = await res.json();
     setData(data);
+    setIsLoading(false);
   };
 
   React.useEffect(() => {
@@ -48,6 +52,10 @@ export default function List() {
   React.useEffect(() => {
     localStorage.setItem("filter", JSON.stringify(filter));
   }, [filter]);
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <div className="">
