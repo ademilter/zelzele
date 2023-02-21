@@ -26,6 +26,10 @@ export default function Head() {
       <meta name="twitter:title" content={meta.title} />
       <meta name="twitter:description" content={meta.description} />
       <meta name="twitter:url" content={meta.url} />
+
+      <link rel="manifest" href="/manifest.json" />
+      <link rel="apple-touch-icon" href="/icons-192.png" />
+      <meta name="theme-color" content="#002254" />
     </>
   );
 }
