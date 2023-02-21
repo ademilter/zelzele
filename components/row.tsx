@@ -65,7 +65,7 @@ export default function Row({ item, isShow }: RowProps) {
   return (
     <motion.article
       {...animations}
-      className={cx("z-10 w-full pb-1", isShow ? "relative" : "absolute z-0")}
+      className={cx("z-10 w-full pt-1", isShow ? "relative" : "absolute z-0")}
     >
       <div
         className={cx("bg-white p-4 md:p-6", styleContainer[magnitudeFloor])}

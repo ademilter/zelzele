@@ -1,26 +1,25 @@
 "use client";
 
 import * as React from "react";
-import Row, {ItemProps} from "@/components/row";
-import Filter, {FilterProps} from "@/components/filter";
-import {AnimatePresence} from "framer-motion";
-import {DateTime} from "luxon";
+import Row, { ItemProps } from "@/components/row";
+import Filter, { FilterProps } from "@/components/filter";
+import { AnimatePresence } from "framer-motion";
+import { DateTime } from "luxon";
 import Day from "@/components/day";
 
 export default function List() {
   const [data, setData] = React.useState<{
     lastUpdate: string;
     data: ItemProps[];
-  }>({lastUpdate: "", data: []});
-  const [filter, setFilter] = React.useState<FilterProps>({hide: 2});
-
-  const hasData = data.data.length > 0;
+  }>({ lastUpdate: "", data: [] });
+  const [filter, setFilter] = React.useState<FilterProps>({ hide: 2 });
+  const [loading, setLoading] = React.useState(false);
 
   // group by day
   const groupByDay = data.data.reduce((acc, row) => {
     const date = DateTime.fromSQL(row.date, {
       zone: "Europe/Istanbul",
-      locale: "tr"
+      locale: "tr",
     })
       .startOf("day")
       .toISODate();
@@ -32,9 +31,16 @@ export default function List() {
   }, {} as Record<string, ItemProps[]>);
 
   const fetchData = async () => {
-    const res = await fetch("/api");
-    const data = await res.json();
-    setData(data);
+    try {
+      setLoading(true);
+      const res = await fetch("/api");
+      const data = await res.json();
+      setData(data);
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setLoading(false);
+    }
   };
 
   React.useEffect(() => {
@@ -75,7 +81,13 @@ export default function List() {
           <p className="opacity-60">Son gerçekleşen 100 deprem içinde</p>
         </div>
       )}
-      <Filter filter={filter} setFilter={setFilter} fetchData={fetchData} />
+
+      <Filter
+        filter={filter}
+        setFilter={setFilter}
+        onRefresh={fetchData}
+        loading={loading}
+      />
     </div>
   );
 }
