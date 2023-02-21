@@ -17,7 +17,7 @@ export interface AllFilterProps {
 
 export default function Filter({ filter, setFilter }: AllFilterProps) {
   return (
-    <div className="fixed left-1/2 bottom-4 flex -translate-x-1/2 items-center gap-2 rounded-full bg-white p-4 shadow-lg">
+    <div className="fixed left-1/2 bottom-6 flex -translate-x-1/2 items-center gap-2 rounded-full bg-white p-4 shadow-lg">
       <label>Göster &gt; {filter.hide}</label>
       <input
         type="range"
