@@ -1,7 +1,8 @@
 export default function Head() {
   const meta = {
-    title: "zelzele.vercel.app",
-    description: "Zelzele verileri",
+    title: "Zelzele - Son 100 Deprem",
+    description:
+      "Türkiye sınırları içinde olan son 100 deprem bilgisini gösterir.",
     url: "https://zelzele.vercel.app",
   };
 
