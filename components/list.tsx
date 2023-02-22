@@ -13,6 +13,7 @@ export default function List() {
     data: ItemProps[];
   }>({ lastUpdate: "", data: [] });
   const [filter, setFilter] = React.useState<FilterProps>({ hide: 2 });
+  const [theme, setTheme] = React.useState(true);
   const [loading, setLoading] = React.useState(false);
 
   const groupByDay = data.data.reduce((acc, row) => {
@@ -47,8 +48,12 @@ export default function List() {
 
   React.useEffect(() => {
     const cacheFilter = localStorage.getItem("filter");
+    const cacheTheme = localStorage.getItem("theme");
     if (cacheFilter) {
       setFilter(JSON.parse(cacheFilter));
+    }
+    if (cacheTheme) {
+      document.documentElement.classList.add(cacheTheme);
     }
     fetchData();
   }, []);
@@ -56,6 +61,11 @@ export default function List() {
   React.useEffect(() => {
     localStorage.setItem("filter", JSON.stringify(filter));
   }, [filter]);
+
+  React.useEffect(() => {
+      document.documentElement.classList.toggle("dark");
+      localStorage.setItem('theme', JSON.stringify(theme));
+  }, [theme]);
 
   return (
     <div className="pb-40">
@@ -89,6 +99,8 @@ export default function List() {
       <Filter
         filter={filter}
         setFilter={setFilter}
+        theme={theme}
+        setTheme={setTheme}
         onRefresh={fetchData}
         loading={loading}
       />

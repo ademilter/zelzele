@@ -26,13 +26,13 @@ export interface RowProps {
 
 export default function Row({ item, isShow }: RowProps) {
   const styleContainer = {
-    "1": "from-zinc-100 bg-gradient-to-l text-zinc-900", // 1-1,9
-    "2": "from-zinc-100 bg-gradient-to-l text-zinc-900", // 2-2,9
-    "3": "from-blue-100 bg-gradient-to-l text-blue-900", // 3-3,9
-    "4": "from-yellow-100 bg-gradient-to-l text-yellow-900", // 4-4,9
-    "5": "from-amber-100 bg-gradient-to-l text-amber-900", // 5-5,9
-    "6": "from-orange-100 bg-gradient-to-l text-orange-900", // 6-6,9
-    "7": "from-red-100 bg-gradient-to-l text-red-900", // 7+
+    "1": "from-zinc-100 dark:from-zinc-900 bg-gradient-to-l text-zinc-900 dark:text-zinc-100", // 1-1,9
+    "2": "from-zinc-100 dark:from-zinc-900 bg-gradient-to-l text-zinc-900 dark:text-zinc-100", // 2-2,9
+    "3": "from-blue-100 dark:from-blue-900 bg-gradient-to-l text-blue-900 dark:text-blue-100", // 3-3,9
+    "4": "from-yellow-100 dark:from-yellow-900 bg-gradient-to-l text-yellow-900 dark:text-yellow-100", // 4-4,9
+    "5": "from-amber-100 dark:from-amber-900 bg-gradient-to-l text-amber-900 dark:text-amber-100", // 5-5,9
+    "6": "from-orange-100 dark:from-orange-900 bg-gradient-to-l text-orange-900 dark:text-orange-100", // 6-6,9
+    "7": "from-red-100 dark:from-red-900 bg-gradient-to-l text-red-900 dark:text-red-100", // 7+
   };
 
   const animations = {
@@ -67,10 +67,10 @@ export default function Row({ item, isShow }: RowProps) {
       className={cx("z-10 w-full pt-1", isShow ? "relative" : "absolute z-0")}
     >
       <div
-        className={cx("bg-white p-4 md:p-6", styleContainer[magnitudeFloor])}
+        className={cx("bg-white dark:bg-black p-4 md:p-6", styleContainer[magnitudeFloor])}
       >
         <div className="mx-auto flex max-w-screen-md items-baseline gap-4 md:gap-6">
-          <div className="rounded-xl bg-black bg-opacity-5 px-2 py-1 text-xl font-bold tabular-nums md:text-3xl">
+          <div className="rounded-xl bg-black  bg-opacity-5 dark:bg-white dark:bg-opacity-5 px-2 py-1 text-xl font-bold tabular-nums md:text-3xl">
             {item.magnitude.toFixed(1)}
           </div>
           <div className="flex flex-col">
