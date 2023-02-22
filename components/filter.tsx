@@ -26,7 +26,9 @@ export default function Filter({
 }: AllFilterProps) {
   return (
     <div className="fixed inset-x-0 bottom-0 z-50 flex items-center justify-center bg-gradient-to-t from-zinc-400 pt-20 pb-10">
+      {/* container */}
       <div className="flex flex-nowrap items-center gap-3">
+        {/* filter */}
         <div className="flex h-12 items-center rounded-full bg-white p-1 shadow-lg">
           {[1, 3, 5].map((i) => {
             const isSelected = filter.hide === i;
@@ -51,6 +53,7 @@ export default function Filter({
           })}
         </div>
 
+        {/* refresh */}
         <button
           className="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-white p-1 shadow-lg"
           onClick={onRefresh}
@@ -60,6 +63,9 @@ export default function Filter({
               loading &&
                 "flex h-full w-full animate-spin items-center justify-center rounded-full bg-zinc-200"
             )}
+            style={{
+              animationDirection: "reverse",
+            }}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
