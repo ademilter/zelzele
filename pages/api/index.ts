@@ -32,16 +32,13 @@ export default async function handler(req: NextRequest) {
         location: {
           selector: "td:nth-child(7)",
           transform: (value) => {
-            const [_city, _district] = (value as string)
+            const [city, district] = (value as string)
               .replace(/([()])/g, "")
               .split(" ").reverse()
 
-            const city = _city || _district;
-            const district = _city ? _district : null;
-
             return {
-              district,
               city,
+              district,
             };
           },
         },
