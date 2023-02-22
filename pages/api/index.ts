@@ -28,12 +28,13 @@ export default async function handler(req: NextRequest) {
         },
         type: "td:nth-child(5)",
         magnitude: "td:nth-child(6) | float",
+        // "Ege Denizi - [40.26 km] Datça (Muğla)" or "Türkoğlu (Kahramanmaraş)"
         location: {
           selector: "td:nth-child(7)",
           transform: (value) => {
-            const [_district, _city] = (value as string)
+            const [_city, _district] = (value as string)
               .replace(/([()])/g, "")
-              .split(" ");
+              .split(" ").reverse()
 
             const city = _city || _district;
             const district = _city ? _district : null;
