@@ -29,6 +29,8 @@ export default function List() {
     return acc;
   }, {} as Record<string, ItemProps[]>);
 
+  const hasData = data.data.find((o) => Math.floor(o.magnitude) >= filter.hide);
+
   const fetchData = async () => {
     try {
       setLoading(true);
@@ -57,7 +59,7 @@ export default function List() {
 
   return (
     <div className="pb-40">
-      {data.data.length > 0 ? (
+      {hasData ? (
         <AnimatePresence mode={"popLayout"}>
           {Object.keys(groupByDay).map((key) => {
             const rows = groupByDay[key];
@@ -77,8 +79,10 @@ export default function List() {
         </AnimatePresence>
       ) : (
         <div className="py-20 text-center">
-          <h4 className="text-lg">Bu büyüklükte deprem olmadı</h4>
-          <p className="opacity-60">Son gerçekleşen 100 deprem içinde</p>
+          <h4 className="text-lg font-medium">
+            Bu büyüklükte deprem yok (çok şükür)
+          </h4>
+          <p className="opacity-60">Son gerçekleşen 100 deprem arasında.</p>
         </div>
       )}
 
