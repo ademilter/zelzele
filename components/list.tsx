@@ -53,7 +53,8 @@ export default function List() {
       setFilter(JSON.parse(cacheFilter));
     }
     if (cacheTheme) {
-      document.documentElement.classList.add(cacheTheme);
+      setTheme(JSON.parse(cacheTheme));
+      document.documentElement.classList.toggle(cacheTheme);
     }
     fetchData();
   }, []);
