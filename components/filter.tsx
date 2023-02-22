@@ -28,7 +28,7 @@ export default function Filter({
     <div className="fixed inset-x-0 bottom-0 z-50 flex items-center justify-center bg-gradient-to-t from-zinc-300 pt-20 pb-10">
       <div className="flex flex-nowrap items-center gap-3">
         <div className="flex h-12 items-center rounded-full bg-white p-1 shadow-lg">
-          {[1, 2, 3, 4, 5].map((i) => {
+          {[1, 3, 5].map((i) => {
             const isSelected = filter.hide === i;
             return (
               <button
