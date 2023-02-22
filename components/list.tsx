@@ -1,19 +1,19 @@
 "use client";
 
 import * as React from "react";
-import { DateTime } from "luxon";
-import { AnimatePresence } from "framer-motion";
-import Row, { ItemProps } from "@/components/row";
-import Filter, { FilterProps } from "@/components/filter";
+import {DateTime} from "luxon";
+import {AnimatePresence} from "framer-motion";
+import Row, {ItemProps} from "@/components/row";
+import Filter, {FilterProps} from "@/components/filter";
 import Day from "@/components/day";
 
 export default function List() {
   const [data, setData] = React.useState<{
     lastUpdate: string;
     data: ItemProps[];
-  }>({ lastUpdate: "", data: [] });
-  const [filter, setFilter] = React.useState<FilterProps>({ hide: 2 });
-  const [theme, setTheme] = React.useState(true);
+  }>({lastUpdate: "", data: []});
+  const [filter, setFilter] = React.useState<FilterProps>({hide: 2});
+  const [theme, setTheme] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
 
   const groupByDay = data.data.reduce((acc, row) => {
@@ -54,7 +54,6 @@ export default function List() {
     }
     if (cacheTheme) {
       setTheme(JSON.parse(cacheTheme));
-      document.documentElement.classList.toggle(cacheTheme);
     }
     fetchData();
   }, []);
@@ -64,8 +63,11 @@ export default function List() {
   }, [filter]);
 
   React.useEffect(() => {
-      document.documentElement.classList.toggle("dark");
-      localStorage.setItem('theme', JSON.stringify(theme));
+    if (theme)
+      document.documentElement.classList.add("dark");
+    else
+      document.documentElement.classList.remove("dark");
+    localStorage.setItem('theme', JSON.stringify(theme));
   }, [theme]);
 
   return (
@@ -76,7 +78,7 @@ export default function List() {
             const rows = groupByDay[key];
             return (
               <React.Fragment key={key}>
-                <Day date={key} />
+                <Day date={key}/>
                 {rows.map((row: ItemProps) => (
                   <Row
                     key={row.id}
