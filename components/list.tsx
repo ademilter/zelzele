@@ -2,9 +2,10 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { DateTime } from "luxon";
-import Row, { ItemProps } from "@/components/row";
 import Filter, { FilterProps } from "@/components/filter";
 import Day from "@/components/day";
+import Row, { ItemProps } from "@/components/row";
+import RowSkeleton from "@/components/row-skeleton";
 
 export default function List() {
   const [data, setData] = useState<{
@@ -12,7 +13,7 @@ export default function List() {
     data: ItemProps[];
   }>({ lastUpdate: "", data: [] });
   const [filter, setFilter] = useState<FilterProps>({ hide: 2 });
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const groupByDay = useMemo(
     () =>
@@ -48,7 +49,7 @@ export default function List() {
     } catch (e) {
       console.error(e);
     } finally {
-      await new Promise((resolve) => setTimeout(resolve, 600));
+      await new Promise((resolve) => setTimeout(resolve, 500));
       setLoading(false);
     }
   };
@@ -67,20 +68,25 @@ export default function List() {
 
   return (
     <div className="pb-40">
-      {hasData ? (
-        <>
-          {Object.keys(groupByDay).map((key) => {
-            const rows = groupByDay[key];
-            return (
-              <div key={key}>
-                <Day date={key} />
-                {rows.map((row: ItemProps) => (
-                  <Row key={row.id} item={row} />
-                ))}
-              </div>
-            );
-          })}
-        </>
+      {loading ? (
+        <div>
+          <Day date={DateTime.now().toISODate()} />
+          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((i) => (
+            <RowSkeleton key={i} />
+          ))}
+        </div>
+      ) : hasData ? (
+        Object.keys(groupByDay).map((key) => {
+          const rows = groupByDay[key];
+          return (
+            <div key={key}>
+              <Day date={key} />
+              {rows.map((row: ItemProps) => (
+                <Row key={row.id} item={row} />
+              ))}
+            </div>
+          );
+        })
       ) : (
         <div className="py-20 text-center">
           <h4 className="text-lg font-medium">

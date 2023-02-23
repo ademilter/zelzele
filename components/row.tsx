@@ -43,11 +43,12 @@ export default function Row({ item }: RowProps) {
 
   return (
     <div className="pt-1">
-      <div
-        className={cx("bg-white p-4 md:p-6", styleContainer[magnitudeFloor])}
-      >
+      <div className={cx("p-4 md:p-6", styleContainer[magnitudeFloor])}>
         <div className="mx-auto flex max-w-screen-md items-baseline gap-4 md:gap-6">
-          <div className="rounded-xl bg-black bg-opacity-5 px-2 py-1 text-xl font-bold tabular-nums md:text-3xl">
+          <div
+            className="rounded-xl bg-black bg-opacity-5 px-2 py-1
+           text-xl font-bold tabular-nums md:text-3xl"
+          >
             {item.magnitude.toFixed(1)}
           </div>
           <div className="flex flex-col">
