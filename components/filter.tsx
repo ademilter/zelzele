@@ -1,4 +1,5 @@
 import { cx } from "@/lib/utils";
+import { motion } from "framer-motion";
 
 export interface FilterProps {
   hide: number;
@@ -28,25 +29,35 @@ export default function Filter({
       {/* container */}
       <div className="flex flex-nowrap items-center gap-3">
         {/* filter */}
-        <div className="flex h-12 items-center rounded-full bg-white p-1 shadow-lg">
+        <div className=" flex h-12 items-center rounded-full bg-white p-1 shadow-lg">
           {[1, 3, 5].map((i) => {
             const isSelected = filter.hide === i;
+
             return (
               <button
                 key={i}
                 type="button"
                 className={cx(
-                  "h-full cursor-pointer rounded px-4",
+                  "relative h-full cursor-pointer select-none rounded px-4 font-bold",
                   "first:rounded-l-full first:pl-5",
-                  "last:rounded-r-full last:pr-5",
-                  {
-                    "bg-zinc-200 font-bold": isSelected,
-                  }
+                  "last:rounded-r-full last:pr-5"
                 )}
                 onClick={() => setFilter({ hide: i })}
               >
-                {isSelected && i !== 1 && <>&gt;</>}
-                {i === 1 ? "Tümü" : i}
+                {isSelected && !loading && (
+                  <motion.span
+                    layoutId="bg"
+                    className="absolute left-0 top-0 h-full w-full rounded-full bg-zinc-200"
+                    transition={{
+                      duration: 0.2,
+                    }}
+                  />
+                )}
+
+                <span className={cx("relative z-10")}>
+                  {i !== 1 && <span className="opacity-50">&gt;</span>}
+                  {i === 1 ? "Tümü" : i}
+                </span>
               </button>
             );
           })}
@@ -54,14 +65,21 @@ export default function Filter({
 
         {/* refresh */}
         <button
-          className="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-white p-1 shadow-lg"
+          className="relative flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-white p-1 shadow-lg"
           onClick={onRefresh}
         >
+          {loading && (
+            <motion.span
+              layoutId="bg"
+              className="absolute inset-1 rounded-full bg-zinc-200"
+              transition={{
+                duration: 0.2,
+              }}
+            />
+          )}
+
           <span
-            className={cx(
-              loading &&
-                "flex h-full w-full animate-spin items-center justify-center rounded-full bg-zinc-200"
-            )}
+            className={cx(loading && "animate-spin")}
             style={{
               animationDirection: "reverse",
             }}
