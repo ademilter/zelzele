@@ -8,7 +8,7 @@ export default function RowSkeleton() {
       <div className="bg-gradient-to-l from-zinc-50 p-4 md:p-6">
         <div className="mx-auto flex max-w-screen-md items-baseline gap-4 md:gap-6">
           <div
-            className="rounded-xl bg-black bg-opacity-5 px-2 py-1 text-xl
+            className="rounded-xl bg-zinc-100 px-2 py-1 text-xl
                 font-bold tabular-nums md:text-3xl"
           >
             <GhostText className="bg-transparent">2,4</GhostText>
