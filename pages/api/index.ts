@@ -34,7 +34,8 @@ export default async function handler(req: NextRequest) {
           transform: (value) => {
             const [city, district] = (value as string)
               .replace(/([()])/g, "")
-              .split(" ").reverse()
+              .split(" ")
+              .reverse();
 
             return {
               city,

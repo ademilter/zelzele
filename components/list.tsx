@@ -1,35 +1,43 @@
 "use client";
 
-import * as React from "react";
+import { useEffect, useMemo, useState } from "react";
 import { DateTime } from "luxon";
-import { AnimatePresence } from "framer-motion";
 import Row, { ItemProps } from "@/components/row";
 import Filter, { FilterProps } from "@/components/filter";
 import Day from "@/components/day";
 
 export default function List() {
-  const [data, setData] = React.useState<{
+  const [data, setData] = useState<{
     lastUpdate: string;
     data: ItemProps[];
   }>({ lastUpdate: "", data: [] });
-  const [filter, setFilter] = React.useState<FilterProps>({ hide: 2 });
-  const [loading, setLoading] = React.useState(false);
+  const [filter, setFilter] = useState<FilterProps>({ hide: 2 });
+  const [loading, setLoading] = useState(false);
 
-  const groupByDay = data.data.reduce((acc, row) => {
-    const date = DateTime.fromSQL(row.date, {
-      zone: "Europe/Istanbul",
-      locale: "tr",
-    })
-      .startOf("day")
-      .toISODate();
-    if (!acc[date]) {
-      acc[date] = [];
-    }
-    acc[date].push(row);
-    return acc;
-  }, {} as Record<string, ItemProps[]>);
+  const groupByDay = useMemo(
+    () =>
+      data.data.reduce((acc, row) => {
+        const date = DateTime.fromSQL(row.date, {
+          zone: "Europe/Istanbul",
+          locale: "tr",
+        })
+          .startOf("day")
+          .toISODate();
 
-  const hasData = data.data.find((o) => Math.floor(o.magnitude) >= filter.hide);
+        if (!acc[date]) {
+          acc[date] = [];
+        }
+
+        if (row.magnitude >= filter.hide) {
+          acc[date].push(row);
+        }
+
+        return acc;
+      }, {} as Record<string, ItemProps[]>),
+    [data, filter.hide]
+  );
+
+  const hasData = Object.values(groupByDay).flatMap((o) => o).length > 0;
 
   const fetchData = async () => {
     try {
@@ -45,7 +53,7 @@ export default function List() {
     }
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     const cacheFilter = localStorage.getItem("filter");
     if (cacheFilter) {
       setFilter(JSON.parse(cacheFilter));
@@ -53,30 +61,26 @@ export default function List() {
     fetchData();
   }, []);
 
-  React.useEffect(() => {
+  useEffect(() => {
     localStorage.setItem("filter", JSON.stringify(filter));
   }, [filter]);
 
   return (
     <div className="pb-40">
       {hasData ? (
-        <AnimatePresence mode={"popLayout"}>
+        <>
           {Object.keys(groupByDay).map((key) => {
             const rows = groupByDay[key];
             return (
-              <React.Fragment key={key}>
+              <div key={key}>
                 <Day date={key} />
                 {rows.map((row: ItemProps) => (
-                  <Row
-                    key={row.id}
-                    item={row}
-                    isShow={Math.floor(row.magnitude) >= filter.hide}
-                  />
+                  <Row key={row.id} item={row} />
                 ))}
-              </React.Fragment>
+              </div>
             );
           })}
-        </AnimatePresence>
+        </>
       ) : (
         <div className="py-20 text-center">
           <h4 className="text-lg font-medium">

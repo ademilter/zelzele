@@ -1,6 +1,5 @@
 "use client";
 
-import * as React from "react";
 import { DateTime } from "luxon";
 
 export interface DayProps {

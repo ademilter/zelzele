@@ -1,9 +1,7 @@
 "use client";
 
-import * as React from "react";
 import { cx } from "@/lib/utils";
 import { DateTime } from "luxon";
-import { motion } from "framer-motion";
 
 export interface ItemProps {
   date: string;
@@ -20,11 +18,10 @@ export interface ItemProps {
 }
 
 export interface RowProps {
-  isShow: boolean;
   item: ItemProps;
 }
 
-export default function Row({ item, isShow }: RowProps) {
+export default function Row({ item }: RowProps) {
   const styleContainer = {
     "1": "from-zinc-100 bg-gradient-to-l text-zinc-900", // 1-1,9
     "2": "from-zinc-100 bg-gradient-to-l text-zinc-900", // 2-2,9
@@ -33,23 +30,6 @@ export default function Row({ item, isShow }: RowProps) {
     "5": "from-amber-100 bg-gradient-to-l text-amber-900", // 5-5,9
     "6": "from-orange-100 bg-gradient-to-l text-orange-900", // 6-6,9
     "7": "from-red-100 bg-gradient-to-l text-red-900", // 7+
-  };
-
-  const animations = {
-    layout: true,
-    initial: "out",
-    animate: isShow ? "in" : "out",
-    variants: {
-      in: {
-        opacity: 1,
-      },
-      out: {
-        opacity: 0,
-      },
-    },
-    transition: {
-      duration: 0.23,
-    },
   };
 
   const magnitudeFloor = Math.floor(
@@ -62,10 +42,7 @@ export default function Row({ item, isShow }: RowProps) {
   });
 
   return (
-    <motion.article
-      {...animations}
-      className={cx("z-10 w-full pt-1", isShow ? "relative" : "absolute z-0")}
-    >
+    <div className="pt-1">
       <div
         className={cx("bg-white p-4 md:p-6", styleContainer[magnitudeFloor])}
       >
@@ -92,6 +69,6 @@ export default function Row({ item, isShow }: RowProps) {
           </div>
         </div>
       </div>
-    </motion.article>
+    </div>
   );
 }
