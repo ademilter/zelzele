@@ -2,11 +2,11 @@
 
 import { DateTime } from "luxon";
 
-export interface DayProps {
+interface Props {
   date: string;
 }
 
-export default function Day({ date }: DayProps) {
+export default function Day({ date }: Props) {
   const dateTime = DateTime.fromSQL(date, {
     zone: "Europe/Istanbul",
     locale: "tr",

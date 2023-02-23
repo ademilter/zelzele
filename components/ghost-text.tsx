@@ -1,14 +1,14 @@
 "use client";
 
 import { cx } from "@/lib/utils";
+import { ReactNode } from "react";
 
-export default function GhostText({
-  children,
-  className,
-}: {
-  children: React.ReactNode;
+interface Props {
+  children: ReactNode;
   className?: string;
-}) {
+}
+
+export default function GhostText({ children, className }: Props) {
   return (
     <span
       className={cx(

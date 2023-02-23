@@ -1,58 +1,18 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect } from "react";
 import { DateTime } from "luxon";
-import Filter, { FilterProps } from "@/components/filter";
+import Filter from "@/components/filter";
 import Day from "@/components/day";
-import Row, { ItemProps } from "@/components/row";
+import Row from "@/components/row";
 import RowSkeleton from "@/components/row-skeleton";
+import store from "@/stores/list";
+import { Item } from "@/lib/types";
 
 export default function List() {
-  const [data, setData] = useState<{
-    lastUpdate: string;
-    data: ItemProps[];
-  }>({ lastUpdate: "", data: [] });
-  const [filter, setFilter] = useState<FilterProps>({ hide: 2 });
-  const [loading, setLoading] = useState(true);
-
-  const groupByDay = useMemo(
-    () =>
-      data.data.reduce((acc, row) => {
-        const date = DateTime.fromSQL(row.date, {
-          zone: "Europe/Istanbul",
-          locale: "tr",
-        })
-          .startOf("day")
-          .toISODate();
-
-        if (!acc[date]) {
-          acc[date] = [];
-        }
-
-        if (row.magnitude >= filter.hide) {
-          acc[date].push(row);
-        }
-
-        return acc;
-      }, {} as Record<string, ItemProps[]>),
-    [data, filter.hide]
-  );
-
-  const hasData = Object.values(groupByDay).flatMap((o) => o).length > 0;
-
-  const fetchData = async () => {
-    try {
-      setLoading(true);
-      const res = await fetch("/api");
-      const data = await res.json();
-      setData(data);
-    } catch (e) {
-      console.error(e);
-    } finally {
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      setLoading(false);
-    }
-  };
+  const { setFilter, fetchData, filter, loading } = store();
+  const hasData = store((state) => state.hasData());
+  const groupByDay = store((state) => state.groupByDay());
 
   useEffect(() => {
     const cacheFilter = localStorage.getItem("filter");
@@ -63,6 +23,7 @@ export default function List() {
   }, []);
 
   useEffect(() => {
+    console.log("filter", filter);
     localStorage.setItem("filter", JSON.stringify(filter));
   }, [filter]);
 
@@ -81,7 +42,7 @@ export default function List() {
           return (
             <div key={key}>
               <Day date={key} />
-              {rows.map((row: ItemProps) => (
+              {rows.map((row: Item) => (
                 <Row key={row.id} item={row} />
               ))}
             </div>
@@ -96,12 +57,7 @@ export default function List() {
         </div>
       )}
 
-      <Filter
-        filter={filter}
-        setFilter={setFilter}
-        onRefresh={fetchData}
-        loading={loading}
-      />
+      <Filter />
     </div>
   );
 }

@@ -1,27 +1,13 @@
 "use client";
 
 import { cx } from "@/lib/utils";
-import { DateTime } from "luxon";
+import { Item } from "@/lib/types";
 
-export interface ItemProps {
-  date: string;
-  depth: { value: number; unit: string };
-  id: number;
-  latitude: number;
-  location: {
-    district: string;
-    city: string;
-  };
-  longitude: number;
-  magnitude: number;
-  type: string;
+interface Props {
+  item: Item;
 }
 
-export interface RowProps {
-  item: ItemProps;
-}
-
-export default function Row({ item }: RowProps) {
+export default function Row({ item }: Props) {
   const styleContainer = {
     "1": "from-zinc-100 bg-gradient-to-l text-zinc-900", // 1-1,9
     "2": "from-zinc-100 bg-gradient-to-l text-zinc-900", // 2-2,9
@@ -32,18 +18,14 @@ export default function Row({ item }: RowProps) {
     "7": "from-red-100 bg-gradient-to-l text-red-900", // 7+
   };
 
-  const magnitudeFloor = Math.floor(
-    item.magnitude
-  ).toString() as keyof typeof styleContainer;
-
-  const dateTime = DateTime.fromSQL(item.date, {
-    zone: "Europe/Istanbul",
-    locale: "tr",
-  });
-
   return (
     <div className="pt-1">
-      <div className={cx("p-4 md:p-6", styleContainer[magnitudeFloor])}>
+      <div
+        className={cx(
+          "p-4 md:p-6",
+          styleContainer[item.magnitudeFloor as keyof typeof styleContainer]
+        )}
+      >
         <div className="mx-auto flex max-w-screen-md items-baseline gap-4 md:gap-6">
           <div
             className="rounded-xl bg-black bg-opacity-5 px-2 py-1
@@ -63,9 +45,11 @@ export default function Row({ item }: RowProps) {
                 {item.depth.value} {item.depth.unit}
               </span>
               <span className="opacity-40">/</span>
-              <time dateTime={item.date}>{dateTime.toFormat("HH:mm")}</time>
+              <time dateTime={item.date}>
+                {item.dateTimeObj.toFormat("HH:mm")}
+              </time>
               <span className="opacity-40">/</span>
-              <span>{dateTime.toRelative()}</span>
+              <span>{item.dateTimeObj.toRelative()}</span>
             </div>
           </div>
         </div>

@@ -1,29 +1,10 @@
 import { cx } from "@/lib/utils";
 import { motion } from "framer-motion";
+import store from "@/stores/list";
 
-export interface FilterProps {
-  hide: number;
-}
+export default function Filter() {
+  const { setFilter, fetchData, filter, loading } = store();
 
-export interface AllFilterProps {
-  filter: {
-    hide: number;
-  };
-  setFilter: React.Dispatch<
-    React.SetStateAction<{
-      hide: number;
-    }>
-  >;
-  onRefresh: () => Promise<void>;
-  loading?: boolean;
-}
-
-export default function Filter({
-  filter,
-  setFilter,
-  onRefresh = () => Promise.resolve(),
-  loading = false,
-}: AllFilterProps) {
   return (
     <div className="fixed inset-x-0 bottom-0 z-50 flex items-center justify-center bg-gradient-to-t from-zinc-400 pt-20 pb-10">
       {/* container */}
@@ -80,7 +61,7 @@ export default function Filter({
         {/* refresh */}
         <button
           className="relative flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-white p-1 shadow-lg"
-          onClick={onRefresh}
+          onClick={fetchData}
         >
           {loading && (
             <motion.span
