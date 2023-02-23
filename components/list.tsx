@@ -22,10 +22,15 @@ export default function List() {
     })
       .startOf("day")
       .toISODate();
+
     if (!acc[date]) {
       acc[date] = [];
     }
-    acc[date].push(row);
+
+    if (row.magnitude >= filter.hide) {
+      acc[date].push(row);
+    }
+
     return acc;
   }, {} as Record<string, ItemProps[]>);
 
@@ -60,23 +65,19 @@ export default function List() {
   return (
     <div className="pb-40">
       {hasData ? (
-        <AnimatePresence mode={"popLayout"}>
+        <>
           {Object.keys(groupByDay).map((key) => {
             const rows = groupByDay[key];
             return (
-              <React.Fragment key={key}>
+              <AnimatePresence initial={false} key={key}>
                 <Day date={key} />
                 {rows.map((row: ItemProps) => (
-                  <Row
-                    key={row.id}
-                    item={row}
-                    isShow={Math.floor(row.magnitude) >= filter.hide}
-                  />
+                  <Row key={row.id} item={row} />
                 ))}
-              </React.Fragment>
+              </AnimatePresence>
             );
           })}
-        </AnimatePresence>
+        </>
       ) : (
         <div className="py-20 text-center">
           <h4 className="text-lg font-medium">
