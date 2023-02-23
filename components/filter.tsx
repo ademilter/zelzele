@@ -29,7 +29,7 @@ export default function Filter({
       {/* container */}
       <div className="flex flex-nowrap items-center gap-3">
         {/* filter */}
-        <div className=" flex h-12 items-center rounded-full bg-white p-1 shadow-lg">
+        <div className="flex h-12 items-center rounded-full bg-white p-1 shadow-lg">
           {[1, 3, 5].map((i) => {
             const isSelected = filter.hide === i;
 
@@ -38,7 +38,8 @@ export default function Filter({
                 key={i}
                 type="button"
                 className={cx(
-                  "relative inline-flex h-full cursor-pointer select-none items-center rounded px-4 font-bold"
+                  "relative inline-flex h-full cursor-pointer select-none items-center rounded px-3 font-bold transition-all",
+                  isSelected ? "px-5" : "first:pl-5 last:pr-5"
                 )}
                 onClick={() => setFilter({ hide: i })}
               >
@@ -56,7 +57,7 @@ export default function Filter({
                   {i !== 1 && (
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className="-ml-1.5 opacity-60"
+                      className="-mr-0.5 -ml-1.5 opacity-60"
                       width="20"
                       viewBox="0 0 24 24"
                       strokeWidth="2"
