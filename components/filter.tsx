@@ -38,9 +38,7 @@ export default function Filter({
                 key={i}
                 type="button"
                 className={cx(
-                  "relative h-full cursor-pointer select-none rounded px-4 font-bold",
-                  "first:rounded-l-full first:pl-5",
-                  "last:rounded-r-full last:pr-5"
+                  "relative inline-flex h-full cursor-pointer select-none items-center rounded px-4 font-bold"
                 )}
                 onClick={() => setFilter({ hide: i })}
               >
@@ -54,9 +52,24 @@ export default function Filter({
                   />
                 )}
 
-                <span className={cx("relative z-10")}>
-                  {i !== 1 && <span className="opacity-50">&gt;</span>}
-                  {i === 1 ? "Tümü" : i}
+                <span className={cx("relative z-10 inline-flex items-center")}>
+                  {i !== 1 && (
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="-ml-1.5 opacity-60"
+                      width="20"
+                      viewBox="0 0 24 24"
+                      strokeWidth="2"
+                      stroke="currentColor"
+                      fill="none"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                      <polyline points="9 6 15 12 9 18" />
+                    </svg>
+                  )}
+                  <span>{i === 1 ? "Tümü" : i}</span>
                 </span>
               </button>
             );
