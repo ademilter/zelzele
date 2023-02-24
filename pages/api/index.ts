@@ -6,12 +6,23 @@ export const config = {
 };
 
 export default async function handler(req: NextRequest) {
+  // const params = new URL(req.url).searchParams;
+  // const start = params.get("start");
+
   try {
-    const date = DateTime.now().toFormat("yyyy-LL-dd");
-    const dateTime = DateTime.now().toFormat("yyyy-LL-dd HH:mm:ss");
-    const response = await fetch(
-      `https://deprem.afad.gov.tr/apiv2/event/filter?start=${date}&end=${dateTime}&orderby=timedesc`
-    );
+    const format = "yyyy-LL-dd HH:mm:ss";
+    const date = DateTime.now();
+    const start = date.minus({ hours: 12 }).toFormat(format);
+    const end = date.toFormat(format);
+
+    const url = new URL("https://deprem.afad.gov.tr/apiv2/event/filter");
+    url.searchParams.append("start", start);
+    url.searchParams.append("end", end);
+    url.searchParams.append("orderby", "timedesc");
+    url.searchParams.append("minmag", "3");
+    // url.searchParams.append("limit", limit);
+
+    const response = await fetch(url.toString());
     const data = await response.json();
 
     return new Response(

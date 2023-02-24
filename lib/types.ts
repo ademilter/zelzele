@@ -16,6 +16,7 @@ export interface ItemProps {
   depth: number;
   id: number;
   latitude: number;
+  location: string;
   province: string;
   district: string;
   longitude: number;
@@ -28,6 +29,7 @@ export class Item {
   public depth: number;
   public id: number;
   public latitude: number;
+  public location: string;
   public province: string;
   public district: string;
   public longitude: number;
@@ -39,6 +41,7 @@ export class Item {
     depth,
     id,
     latitude,
+    location,
     province,
     district,
     longitude,
@@ -49,6 +52,7 @@ export class Item {
     this.depth = depth;
     this.id = id;
     this.latitude = latitude;
+    this.location = location;
     this.province = province;
     this.district = district;
     this.longitude = longitude;

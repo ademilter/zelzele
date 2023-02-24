@@ -11,10 +11,10 @@ export default function Row({ item }: Props) {
   const styleContainer = {
     "1": "from-zinc-100 bg-gradient-to-l text-zinc-900", // 1-1,9
     "2": "from-zinc-100 bg-gradient-to-l text-zinc-900", // 2-2,9
-    "3": "from-blue-100 bg-gradient-to-l text-blue-900", // 3-3,9
-    "4": "from-yellow-100 bg-gradient-to-l text-yellow-900", // 4-4,9
-    "5": "from-amber-100 bg-gradient-to-l text-amber-900", // 5-5,9
-    "6": "from-orange-100 bg-gradient-to-l text-orange-900", // 6-6,9
+    "3": "from-zinc-100 bg-gradient-to-l text-zinc-900", // 3-3,9
+    "4": "from-amber-100 bg-gradient-to-l text-amber-900", // 4-4,9
+    "5": "from-orange-100 bg-gradient-to-l text-orange-900", // 5-5,9
+    "6": "from-red-100 bg-gradient-to-l text-red-900", // 6-6,9
     "7": "from-red-100 bg-gradient-to-l text-red-900", // 7+
   };
 
@@ -34,15 +34,19 @@ export default function Row({ item }: Props) {
             {Number(item.magnitude).toFixed(1)}
           </div>
           <div className="flex flex-col">
-            <h3 className="text-xl font-bold md:text-3xl">{item.province}</h3>
-            <h5 className="text-xl opacity-60 md:text-2xl">{item.district}</h5>
+            <h3 className="text-xl font-bold md:text-3xl">
+              {item.province || item.location}
+            </h3>
+            <h5 className="text-xl opacity-60 md:text-2xl">
+              {item.district || "-"}
+            </h5>
             <div className="mt-0.5 flex items-center gap-1.5 opacity-60">
               <span>{item.depth} km</span>
-              <span className="opacity-40">/</span>
+              <span className="opacity-40">•</span>
               <time dateTime={item.date}>
                 {item.dateTimeObj.toFormat("HH:mm")}
               </time>
-              <span className="opacity-40">/</span>
+              <span className="opacity-40">•</span>
               <span>{item.dateTimeObj.toRelative()}</span>
             </div>
           </div>

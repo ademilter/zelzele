@@ -11,7 +11,7 @@ export default function Filter() {
       <div className="flex flex-nowrap items-center gap-3">
         {/* filter */}
         <div className="flex h-12 items-center rounded-full bg-white p-1 shadow-lg">
-          {[1, 3, 5].map((i) => {
+          {[1, 4].map((i) => {
             const isSelected = filter.hide === i;
 
             return (
@@ -22,8 +22,9 @@ export default function Filter() {
                   i === 1 ? "Tümünü göster" : `${i} den büyükleri göster`
                 }
                 className={cx(
-                  "relative inline-flex h-full cursor-pointer select-none items-center rounded px-3 font-bold transition-all",
-                  isSelected ? "px-5" : "first:pl-5 last:pr-5"
+                  "relative inline-flex h-full cursor-pointer select-none items-center",
+                  "rounded-full px-5 font-bold",
+                  isSelected && "bg-zinc-100"
                 )}
                 onClick={() => setFilter({ hide: i })}
               >
