@@ -25,7 +25,7 @@ const store = create<State>((set, get) => ({
   groupByDay: (): DataByDay => {
     const { data, filter } = get();
     return data.data.reduce((acc, row) => {
-      const date = DateTime.fromSQL(row.date, {
+      const date = DateTime.fromISO(row.date, {
         zone: "Europe/Istanbul",
         locale: "tr",
       })

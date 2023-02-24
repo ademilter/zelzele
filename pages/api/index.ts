@@ -1,4 +1,4 @@
-import { parse } from "muninn";
+import { DateTime } from "luxon";
 import { NextRequest } from "next/server";
 
 export const config = {
@@ -7,44 +7,12 @@ export const config = {
 
 export default async function handler(req: NextRequest) {
   try {
+    const date = DateTime.now().toFormat("yyyy-LL-dd");
+    const dateTime = DateTime.now().toFormat("yyyy-LL-dd HH:mm:ss");
     const response = await fetch(
-      "https://deprem.afad.gov.tr/last-earthquakes.html"
+      `https://deprem.afad.gov.tr/apiv2/event/filter?start=${date}&end=${dateTime}&orderby=timedesc`
     );
-    const content = await response.text();
-
-    // https://github.com/aykutkardas/awesome-muninn/blob/main/configs/tr-last-earthquakes.md
-    const data = parse(content, {
-      selector: ".content-table tbody tr | array",
-      schema: {
-        id: "td:nth-child(8) | number",
-        date: "td:nth-child(1)",
-        latitude: "td:nth-child(2) | float",
-        longitude: "td:nth-child(3) | float",
-        depth: {
-          schema: {
-            value: "td:nth-child(4) | float",
-            unit: { fill: "km" },
-          },
-        },
-        type: "td:nth-child(5)",
-        magnitude: "td:nth-child(6) | float",
-        // "Ege Denizi - [40.26 km] Datça (Muğla)" or "Türkoğlu (Kahramanmaraş)"
-        location: {
-          selector: "td:nth-child(7)",
-          transform: (value) => {
-            const [city, district] = (value as string)
-              .replace(/([()])/g, "")
-              .split(" ")
-              .reverse();
-
-            return {
-              city,
-              district,
-            };
-          },
-        },
-      },
-    });
+    const data = await response.json();
 
     return new Response(
       JSON.stringify({

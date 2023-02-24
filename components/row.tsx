@@ -31,19 +31,13 @@ export default function Row({ item }: Props) {
             className="rounded-xl bg-black bg-opacity-5 px-2 py-1
            text-xl font-bold tabular-nums md:text-3xl"
           >
-            {item.magnitude.toFixed(1)}
+            {Number(item.magnitude).toFixed(1)}
           </div>
           <div className="flex flex-col">
-            <h3 className="text-xl font-bold md:text-3xl">
-              {item.location.city}
-            </h3>
-            <h5 className="text-xl opacity-60 md:text-2xl">
-              {item.location.district}
-            </h5>
+            <h3 className="text-xl font-bold md:text-3xl">{item.province}</h3>
+            <h5 className="text-xl opacity-60 md:text-2xl">{item.district}</h5>
             <div className="mt-0.5 flex items-center gap-1.5 opacity-60">
-              <span>
-                {item.depth.value} {item.depth.unit}
-              </span>
+              <span>{item.depth} km</span>
               <span className="opacity-40">/</span>
               <time dateTime={item.date}>
                 {item.dateTimeObj.toFormat("HH:mm")}

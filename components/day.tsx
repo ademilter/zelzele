@@ -7,7 +7,7 @@ interface Props {
 }
 
 export default function Day({ date }: Props) {
-  const dateTime = DateTime.fromSQL(date, {
+  const dateTime = DateTime.fromISO(date, {
     zone: "Europe/Istanbul",
     locale: "tr",
   });
