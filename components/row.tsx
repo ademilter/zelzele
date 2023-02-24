@@ -17,10 +17,6 @@ export default function Row({ item }: Props) {
     "6": "from-orange-100 bg-gradient-to-l text-orange-900", // 6-6,9
     "7": "from-red-100 bg-gradient-to-l text-red-900", // 7+
   };
-  const [city, district] = (item.location as string)
-    .replace(/([()])/g, "")
-    .split(" ")
-    .reverse();
 
   return (
     <div className="pt-1">
@@ -35,11 +31,11 @@ export default function Row({ item }: Props) {
             className="rounded-xl bg-black bg-opacity-5 px-2 py-1
            text-xl font-bold tabular-nums md:text-3xl"
           >
-            {item.magnitude}
+            {Number(item.magnitude).toFixed(1)}
           </div>
           <div className="flex flex-col">
-            <h3 className="text-xl font-bold md:text-3xl">{city}</h3>
-            <h5 className="text-xl opacity-60 md:text-2xl">{district}</h5>
+            <h3 className="text-xl font-bold md:text-3xl">{item.province}</h3>
+            <h5 className="text-xl opacity-60 md:text-2xl">{item.district}</h5>
             <div className="mt-0.5 flex items-center gap-1.5 opacity-60">
               <span>{item.depth} km</span>
               <span className="opacity-40">/</span>
