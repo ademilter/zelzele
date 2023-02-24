@@ -18,6 +18,9 @@ export default function Filter() {
               <button
                 key={i}
                 type="button"
+                aria-label={
+                  i === 1 ? "Tümünü göster" : `${i} den büyükleri göster`
+                }
                 className={cx(
                   "relative inline-flex h-full cursor-pointer select-none items-center rounded px-3 font-bold transition-all",
                   isSelected ? "px-5" : "first:pl-5 last:pr-5"
@@ -62,6 +65,7 @@ export default function Filter() {
         <button
           className="relative flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-white p-1 shadow-lg"
           onClick={fetchData}
+          aria-label="Yenile"
         >
           {loading && (
             <motion.span
