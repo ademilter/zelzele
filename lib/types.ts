@@ -13,13 +13,10 @@ export type DataByDay = Record<string, Item[]>; // YYYY-MM-DD
 
 export interface ItemProps {
   date: string;
-  depth: { value: number; unit: string };
+  depth: number;
   id: number;
   latitude: number;
-  location: {
-    district: string;
-    city: string;
-  };
+  location: string;
   longitude: number;
   magnitude: number;
   type: string;
@@ -27,10 +24,10 @@ export interface ItemProps {
 
 export class Item {
   public date: string;
-  public depth: { value: number; unit: string };
+  public depth: number;
   public id: number;
   public latitude: number;
-  public location: { district: string; city: string };
+  public location: string;
   public longitude: number;
   public magnitude: number;
   public type: string;
@@ -60,9 +57,9 @@ export class Item {
   }
 
   get dateTimeObj() {
-    return DateTime.fromSQL(this.date, {
+    return DateTime.fromISO(this.date, {
       zone: "Europe/Istanbul",
       locale: "tr",
-    });
+    }).plus({ hours: 3 });
   }
 }
