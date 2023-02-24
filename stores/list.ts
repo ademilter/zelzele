@@ -28,16 +28,16 @@ const store = create<State>((set, get) => ({
       const date = DateTime.fromISO(row.date, {
         zone: "Europe/Istanbul",
         locale: "tr",
-      })
-        .startOf("day")
-        .toISODate();
+      }).plus({ hours: 3 });
 
-      if (!acc[date]) {
-        acc[date] = [];
+      const key = date.startOf("day").toISODate();
+
+      if (!acc[key]) {
+        acc[key] = [];
       }
 
       if (row.magnitude >= filter.hide) {
-        acc[date].push(new Item(row));
+        acc[key].push(new Item({ ...row, date: date.toISO() }));
       }
 
       return acc;

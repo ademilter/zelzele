@@ -31,7 +31,7 @@ export default function List() {
     <div className="pb-40">
       {loading ? (
         <div>
-          <Day date={DateTime.now().toISODate()} />
+          <Day date={DateTime.now().toISO()} />
           {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((i) => (
             <RowSkeleton key={i} />
           ))}

@@ -68,6 +68,6 @@ export class Item {
     return DateTime.fromISO(this.date, {
       zone: "Europe/Istanbul",
       locale: "tr",
-    }).plus({ hours: 3 });
+    });
   }
 }
