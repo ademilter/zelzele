@@ -1,7 +1,8 @@
 export default function Head() {
   const meta = {
-    title: "zelzele.vercel.app",
-    description: "Zelzele verileri",
+    title: "Zelzele - Son 100 Deprem",
+    description:
+      "Türkiye sınırları içinde olan son 100 deprem bilgisini gösterir.",
     url: "https://zelzele.vercel.app",
   };
 
@@ -29,7 +30,7 @@ export default function Head() {
 
       <link rel="manifest" href="/manifest.json" />
       <link rel="apple-touch-icon" href="/icons-192.png" />
-      <meta name="theme-color" content="#002254" />
+      <meta name="theme-color" content="#ffffff" />
     </>
   );
 }

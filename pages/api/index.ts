@@ -28,16 +28,18 @@ export default async function handler(req: NextRequest) {
         },
         type: "td:nth-child(5)",
         magnitude: "td:nth-child(6) | float",
+        // "Ege Denizi - [40.26 km] Datça (Muğla)" or "Türkoğlu (Kahramanmaraş)"
         location: {
           selector: "td:nth-child(7)",
           transform: (value) => {
-            const [district, city] = (value as string)
+            const [city, district] = (value as string)
               .replace(/([()])/g, "")
-              .split(" ");
+              .split(" ")
+              .reverse();
 
             return {
-              district,
               city,
+              district,
             };
           },
         },
