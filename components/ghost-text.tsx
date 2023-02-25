@@ -10,7 +10,7 @@ export default function GhostText({ children, className }: Props) {
   return (
     <span
       className={cx(
-        "inline-flex origin-left scale-75 rounded-lg bg-zinc-100 text-transparent",
+        "inline-flex origin-left scale-75 rounded-lg bg-zinc-200 text-transparent",
         className
       )}
     >

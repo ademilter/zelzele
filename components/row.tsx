@@ -23,11 +23,11 @@ export default function Row({ item }: Props) {
     <div className="pt-1">
       <div
         className={cx(
-          "p-4 md:p-6",
+          "p-4 md:p-5",
           styleContainer[item.magnitudeFloor as keyof typeof styleContainer]
         )}
       >
-        <div className="mx-auto flex max-w-screen-md items-baseline gap-4 md:gap-6">
+        <div className="mx-auto flex max-w-screen-md items-baseline gap-4 md:gap-5">
           {/**/}
 
           {/* magnitude */}
