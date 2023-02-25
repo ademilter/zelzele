@@ -4,6 +4,8 @@ import store from "@/stores/list";
 
 export default function Filter() {
   const { setFilter, fetchData, filter, loading } = store();
+  const isMobile =
+    typeof window !== "undefined" && document.body.clientWidth < 768;
 
   return (
     <div className="fixed inset-x-0 bottom-0 z-50 flex items-center justify-center bg-gradient-to-t from-zinc-400 pt-20 pb-10">
@@ -116,16 +118,18 @@ export default function Filter() {
               })
             }
           >
-            <span>{filter.city}</span>
+            <span>
+              {isMobile ? `${filter.city.slice(0, 4)}...` : filter.city}
+            </span>
             <svg
               width="16"
               height="16"
               viewBox="0 0 24 24"
-              stroke-width="3"
+              strokeWidth="3"
               stroke="currentColor"
               fill="none"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeLinecap="round"
+              strokeLinejoin="round"
               className="mt-[2px]"
             >
               <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
