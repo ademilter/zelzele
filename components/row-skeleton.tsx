@@ -18,7 +18,7 @@ export default function RowSkeleton() {
             <h5 className="text-xl">
               <GhostText>Nurhak</GhostText>
             </h5>
-            <div className="flex items-center">
+            <div className="flex items-center md:mt-0.5">
               <GhostText>7 km</GhostText>
               <GhostText>14:50</GhostText>
               <GhostText>33 dakika önce</GhostText>
