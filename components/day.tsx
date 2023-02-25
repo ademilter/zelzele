@@ -1,5 +1,3 @@
-"use client";
-
 import { DateTime } from "luxon";
 
 interface Props {

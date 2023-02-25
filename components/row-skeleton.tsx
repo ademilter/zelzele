@@ -1,5 +1,3 @@
-"use client";
-
 import GhostText from "@/components/ghost-text";
 
 export default function RowSkeleton() {

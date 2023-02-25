@@ -1,5 +1,4 @@
 import { cx } from "@/lib/utils";
-import { motion } from "framer-motion";
 import store from "@/stores/list";
 
 export default function Filter() {
@@ -10,7 +9,38 @@ export default function Filter() {
   return (
     <div className="fixed inset-x-0 bottom-0 z-50 flex items-center justify-center bg-gradient-to-t from-zinc-400 pt-20 pb-10">
       {/* container */}
-      <div className="flex flex-nowrap items-center gap-3">
+      <div className="flex flex-nowrap items-center justify-center gap-3">
+        {/* city */}
+        {filter?.city && (
+          <button
+            className="flex h-12 w-28 select-none items-center gap-1.5 rounded-full
+            bg-white px-4 font-semibold shadow-lg md:w-auto"
+            onClick={() =>
+              setFilter({
+                ...filter,
+                city: null,
+              })
+            }
+          >
+            <span className="grow overflow-hidden text-ellipsis">
+              {filter.city.replace(/ /g, "\u00a0")}
+            </span>
+            <svg
+              className="-mr-1 shrink-0 opacity-50"
+              width="20"
+              viewBox="0 0 24 24"
+              strokeWidth="2"
+              stroke="currentColor"
+              fill="none"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+        )}
+
         {/* filter */}
         <div className="flex h-12 items-center rounded-full bg-white p-1 shadow-lg">
           {[1, 4].map((i) => {
@@ -25,8 +55,8 @@ export default function Filter() {
                 }
                 className={cx(
                   "relative inline-flex h-full cursor-pointer select-none items-center",
-                  "rounded-full px-5 font-bold",
-                  isSelected && "bg-zinc-100"
+                  "rounded-full px-4 font-medium transition-all",
+                  isSelected && "bg-zinc-700 text-white"
                 )}
                 onClick={() =>
                   setFilter({
@@ -35,21 +65,10 @@ export default function Filter() {
                   })
                 }
               >
-                {isSelected && !loading && (
-                  <motion.span
-                    layoutId="bg"
-                    className="absolute left-0 top-0 h-full w-full rounded-full bg-zinc-200"
-                    transition={{
-                      duration: 0.2,
-                    }}
-                  />
-                )}
-
                 <span className={cx("relative z-10 inline-flex items-center")}>
                   {i !== 1 && (
                     <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="-mr-0.5 -ml-1.5 opacity-60"
+                      className="-mr-1 -ml-1.5 opacity-50"
                       width="20"
                       viewBox="0 0 24 24"
                       strokeWidth="2"
@@ -58,7 +77,6 @@ export default function Filter() {
                       strokeLinecap="round"
                       strokeLinejoin="round"
                     >
-                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                       <polyline points="9 6 15 12 9 18" />
                     </svg>
                   )}
@@ -71,28 +89,20 @@ export default function Filter() {
 
         {/* refresh */}
         <button
-          className="relative flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-white p-1 shadow-lg"
+          className="flex h-12 w-12 shrink-0 cursor-pointer rounded-full bg-white p-1 shadow-lg"
           onClick={fetchData}
           aria-label="Yenile"
         >
-          {loading && (
-            <motion.span
-              layoutId="bg"
-              className="absolute inset-1 rounded-full bg-zinc-200"
-              transition={{
-                duration: 0.2,
-              }}
-            />
-          )}
-
           <span
-            className={cx(loading && "animate-spin")}
+            className={cx(
+              "flex h-full w-full items-center justify-center rounded-full transition-all",
+              loading && "animate-spin bg-zinc-700 text-white"
+            )}
             style={{
               animationDirection: "reverse",
             }}
           >
             <svg
-              xmlns="http://www.w3.org/2000/svg"
               width="20"
               viewBox="0 0 24 24"
               strokeWidth="2"
@@ -106,38 +116,6 @@ export default function Filter() {
             </svg>
           </span>
         </button>
-
-        {/* city */}
-        {filter?.city && (
-          <button
-            className="relative flex h-12 cursor-pointer select-none items-center gap-2 rounded-full bg-white px-5 font-bold shadow-lg"
-            onClick={() =>
-              setFilter({
-                ...filter,
-                city: null,
-              })
-            }
-          >
-            <span>
-              {isMobile ? `${filter.city.slice(0, 4)}...` : filter.city}
-            </span>
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              strokeWidth="3"
-              stroke="currentColor"
-              fill="none"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="mt-[2px]"
-            >
-              <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-              <path d="M18 6l-12 12"></path>
-              <path d="M6 6l12 12"></path>
-            </svg>
-          </button>
-        )}
       </div>
     </div>
   );
