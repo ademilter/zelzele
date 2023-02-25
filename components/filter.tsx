@@ -4,6 +4,8 @@ import store from "@/stores/list";
 
 export default function Filter() {
   const { setFilter, fetchData, filter, loading } = store();
+  const isMobile =
+    typeof window !== "undefined" && document.body.clientWidth < 768;
 
   return (
     <div className="fixed inset-x-0 bottom-0 z-50 flex items-center justify-center bg-gradient-to-t from-zinc-400 pt-20 pb-10">
@@ -26,7 +28,12 @@ export default function Filter() {
                   "rounded-full px-5 font-bold",
                   isSelected && "bg-zinc-100"
                 )}
-                onClick={() => setFilter({ hide: i })}
+                onClick={() =>
+                  setFilter({
+                    ...filter,
+                    hide: i,
+                  })
+                }
               >
                 {isSelected && !loading && (
                   <motion.span
@@ -99,6 +106,38 @@ export default function Filter() {
             </svg>
           </span>
         </button>
+
+        {/* city */}
+        {filter?.city && (
+          <button
+            className="relative flex h-12 cursor-pointer select-none items-center gap-2 rounded-full bg-white px-5 font-bold shadow-lg"
+            onClick={() =>
+              setFilter({
+                ...filter,
+                city: null,
+              })
+            }
+          >
+            <span>
+              {isMobile ? `${filter.city.slice(0, 4)}...` : filter.city}
+            </span>
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              strokeWidth="3"
+              stroke="currentColor"
+              fill="none"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="mt-[2px]"
+            >
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+              <path d="M18 6l-12 12"></path>
+              <path d="M6 6l12 12"></path>
+            </svg>
+          </button>
+        )}
       </div>
     </div>
   );

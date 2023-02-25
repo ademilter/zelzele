@@ -2,12 +2,15 @@
 
 import { cx } from "@/lib/utils";
 import { Item } from "@/lib/types";
+import store from "@/stores/list";
 
 interface Props {
   item: Item;
 }
 
 export default function Row({ item }: Props) {
+  const { setFilter, filter } = store();
+
   const styleContainer = {
     "1": "from-zinc-100 bg-gradient-to-l text-zinc-900", // 1-1,9
     "2": "from-zinc-100 bg-gradient-to-l text-zinc-900", // 2-2,9
@@ -34,9 +37,17 @@ export default function Row({ item }: Props) {
             {Number(item.magnitude).toFixed(1)}
           </div>
           <div className="flex flex-col">
-            <h3 className="text-xl font-bold md:text-3xl">
+            <button
+              className="text-left text-xl font-bold md:text-3xl"
+              onClick={() => {
+                setFilter({
+                  ...filter,
+                  city: item.province || item.location,
+                });
+              }}
+            >
               {item.province || item.location}
-            </h3>
+            </button>
             <h5 className="text-xl opacity-60 md:text-2xl">
               {item.district || "-"}
             </h5>

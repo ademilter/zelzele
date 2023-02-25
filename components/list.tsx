@@ -41,7 +41,7 @@ export default function List() {
           const rows = groupByDay[key];
           return (
             <div key={key}>
-              <Day date={key} />
+              {rows.length > 0 && <Day date={key} />}
               {rows.map((row: Item) => (
                 <Row key={row.id} item={row} />
               ))}

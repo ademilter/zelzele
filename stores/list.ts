@@ -36,7 +36,11 @@ const store = create<State>((set, get) => ({
         acc[key] = [];
       }
 
-      if (row.magnitude >= filter.hide) {
+      const isMagnitude = row.magnitude >= filter.hide;
+      const isCity =
+        !filter?.city || (row.province || row.location) === filter.city;
+
+      if (isMagnitude && isCity) {
         acc[key].push(new Item({ ...row, date: date.toISO() }));
       }
 
