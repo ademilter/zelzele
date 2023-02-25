@@ -2,6 +2,7 @@ import { DateTime } from "luxon";
 
 export type Filter = {
   hide: number;
+  city?: string | null;
 };
 
 export type Data = {

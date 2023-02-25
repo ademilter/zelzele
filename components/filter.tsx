@@ -26,7 +26,12 @@ export default function Filter() {
                   "rounded-full px-5 font-bold",
                   isSelected && "bg-zinc-100"
                 )}
-                onClick={() => setFilter({ hide: i })}
+                onClick={() =>
+                  setFilter({
+                    ...filter,
+                    hide: i,
+                  })
+                }
               >
                 {isSelected && !loading && (
                   <motion.span
@@ -99,6 +104,36 @@ export default function Filter() {
             </svg>
           </span>
         </button>
+
+        {/* city */}
+        {filter?.city && (
+          <button
+            className="relative flex h-12 cursor-pointer select-none items-center gap-2 rounded-full bg-white px-5 font-bold shadow-lg"
+            onClick={() =>
+              setFilter({
+                ...filter,
+                city: null,
+              })
+            }
+          >
+            <span>{filter.city}</span>
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              stroke-width="3"
+              stroke="currentColor"
+              fill="none"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              className="mt-[2px]"
+            >
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+              <path d="M18 6l-12 12"></path>
+              <path d="M6 6l12 12"></path>
+            </svg>
+          </button>
+        )}
       </div>
     </div>
   );
