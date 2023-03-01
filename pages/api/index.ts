@@ -12,7 +12,7 @@ export default async function handler(req: NextRequest) {
   try {
     const format = "yyyy-LL-dd HH:mm:ss";
     const date = DateTime.now();
-    const start = date.minus({ hours: 24 }).toFormat(format);
+    const start = date.minus({ days: 2 }).toFormat(format);
     const end = date.toFormat(format);
 
     const url = new URL("https://deprem.afad.gov.tr/apiv2/event/filter");
