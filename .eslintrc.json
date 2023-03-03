@@ -1,3 +1,30 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": ["next", "next/core-web-vitals", "prettier"],
+  "plugins": ["prettier", "simple-import-sort", "tailwindcss"],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "rules": {
+    "quotes": ["error", "double"],
+    "prettier/prettier": "error",
+    "no-console": "error",
+    "simple-import-sort/imports": "error",
+    "no-duplicate-imports": "error",
+    "no-unused-vars": ["error", { "args": "all", "argsIgnorePattern": "^_" }],
+    "no-duplicate-case": "error",
+    "no-empty": "error",
+    "class-methods-use-this": "error",
+    "no-dupe-keys": "error",
+    "no-dupe-args": "error",
+    "no-case-declarations": "error",
+    "tailwindcss/classnames-order": "warn",
+    "tailwindcss/enforces-negative-arbitrary-values": "warn",
+    "tailwindcss/enforces-shorthand": "warn",
+    "tailwindcss/migration-from-tailwind-2": "warn",
+    "tailwindcss/no-arbitrary-value": "off",
+    "tailwindcss/no-custom-classname": "warn",
+    "tailwindcss/no-contradicting-classname": "error"
+  }
 }
