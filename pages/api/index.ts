@@ -1,11 +1,10 @@
 import { DateTime } from "luxon";
-import { NextRequest } from "next/server";
 
 export const config = {
-  runtime: "edge",
+  runtime: "edge"
 };
 
-export default async function handler(req: NextRequest) {
+export default async function handler() {
   // const params = new URL(req.url).searchParams;
   // const start = params.get("start");
 
@@ -28,13 +27,13 @@ export default async function handler(req: NextRequest) {
     return new Response(
       JSON.stringify({
         lastUpdate: new Date().toISOString(),
-        data,
+        data
       }),
       {
         status: 200,
         headers: {
-          "Cache-Control": "s-maxage=60",
-        },
+          "Cache-Control": "s-maxage=60"
+        }
       }
     );
   } catch (error) {

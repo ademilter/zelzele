@@ -1,14 +1,15 @@
-import create from "zustand";
 import { DateTime } from "luxon";
+import create from "zustand";
+
 import { Data, DataByDay, Filter, Item } from "@/lib/types";
 
 interface State {
   loading: boolean;
-  setLoading: (state: boolean) => void;
+  setLoading: (_state: boolean) => void;
   data: Data;
-  setData: (data: Data) => void;
+  setData: (_data: Data) => void;
   filter: Filter;
-  setFilter: (filter: Filter) => void;
+  setFilter: (_filter: Filter) => void;
   groupByDay: () => DataByDay;
   hasData: () => boolean;
   fetchData: () => Promise<void>;
@@ -16,18 +17,18 @@ interface State {
 
 const store = create<State>((set, get) => ({
   loading: true,
-  setLoading: (state) => set(() => ({ loading: state })),
+  setLoading: state => set(() => ({ loading: state })),
   data: { lastUpdate: "", data: [] },
-  setData: (data) => set(() => ({ data })),
+  setData: data => set(() => ({ data })),
   filter: { hide: 2 },
-  setFilter: (filter) =>
-    set((state) => ({ filter: { ...state.filter, ...filter } })),
+  setFilter: filter =>
+    set(state => ({ filter: { ...state.filter, ...filter } })),
   groupByDay: (): DataByDay => {
     const { data, filter } = get();
     return data.data.reduce((acc, row) => {
       const date = DateTime.fromISO(row.date, {
         zone: "Europe/Istanbul",
-        locale: "tr",
+        locale: "tr"
       }).plus({ hours: 3 });
 
       const key = date.startOf("day").toISODate();
@@ -49,7 +50,7 @@ const store = create<State>((set, get) => ({
   },
   hasData: (): boolean => {
     const { groupByDay } = get();
-    return Object.values(groupByDay()).flatMap((o) => o).length > 0;
+    return Object.values(groupByDay()).flatMap(o => o).length > 0;
   },
   fetchData: async () => {
     const { setLoading, setData } = get();
@@ -59,12 +60,13 @@ const store = create<State>((set, get) => ({
       const data = await res.json();
       setData(data);
     } catch (e) {
+      // eslint-disable-next-line no-console
       console.error(e);
     } finally {
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      await new Promise(resolve => setTimeout(resolve, 500));
       setLoading(false);
     }
-  },
+  }
 }));
 
 export default store;

@@ -1,5 +1,5 @@
-import { cx } from "@/lib/utils";
 import { Item } from "@/lib/types";
+import { cx } from "@/lib/utils";
 import store from "@/stores/list";
 
 interface Props {
@@ -16,7 +16,7 @@ export default function Row({ item }: Props) {
     "4": "from-orange-100 bg-gradient-to-l text-orange-900", // 4-4,9
     "5": "from-pink-100 bg-gradient-to-l text-pink-900", // 5-5,9
     "6": "from-red-100 bg-gradient-to-l text-red-900", // 6-6,9
-    "7": "from-red-100 bg-gradient-to-l text-red-900", // 7+
+    "7": "from-red-100 bg-gradient-to-l text-red-900" // 7+
   };
 
   return (
@@ -47,7 +47,7 @@ export default function Row({ item }: Props) {
               onClick={() => {
                 setFilter({
                   ...filter,
-                  city: item.province || item.location,
+                  city: item.province || item.location
                 });
               }}
             >

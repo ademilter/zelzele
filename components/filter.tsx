@@ -3,8 +3,6 @@ import store from "@/stores/list";
 
 export default function Filter() {
   const { setFilter, fetchData, filter, loading } = store();
-  const isMobile =
-    typeof window !== "undefined" && document.body.clientWidth < 768;
 
   return (
     <div className="fixed inset-x-0 bottom-0 z-50 flex items-center justify-center bg-gradient-to-t from-zinc-400 pt-20 pb-10">
@@ -18,7 +16,7 @@ export default function Filter() {
             onClick={() =>
               setFilter({
                 ...filter,
-                city: null,
+                city: null
               })
             }
           >
@@ -43,7 +41,7 @@ export default function Filter() {
 
         {/* filter */}
         <div className="flex h-12 items-center rounded-full bg-white p-1 shadow-lg">
-          {[1, 4].map((i) => {
+          {[1, 4].map(i => {
             const isSelected = filter.hide === i;
 
             return (
@@ -61,7 +59,7 @@ export default function Filter() {
                 onClick={() =>
                   setFilter({
                     ...filter,
-                    hide: i,
+                    hide: i
                   })
                 }
               >
@@ -99,7 +97,7 @@ export default function Filter() {
               loading && "animate-spin bg-zinc-700 text-white"
             )}
             style={{
-              animationDirection: "reverse",
+              animationDirection: "reverse"
             }}
           >
             <svg
