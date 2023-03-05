@@ -47,7 +47,7 @@ export class Item {
     district,
     longitude,
     magnitude,
-    type,
+    type
   }: ItemProps) {
     this.date = date;
     this.depth = depth;
@@ -68,7 +68,7 @@ export class Item {
   get dateTimeObj() {
     return DateTime.fromISO(this.date, {
       zone: "Europe/Istanbul",
-      locale: "tr",
+      locale: "tr"
     });
   }
 }

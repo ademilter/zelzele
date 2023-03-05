@@ -1,15 +1,17 @@
 import "@/styles/globals.css";
 
-import type { Metadata } from "next";
 import { Inter } from "@next/font/google";
+import type { Metadata } from "next";
+
 import { cx } from "@/lib/utils";
+
 import AnalyticsWrapper from "../components/analytics";
 
 const inter = Inter({
   variable: "--font-inter",
   display: "swap",
   style: "normal",
-  subsets: ["latin-ext"],
+  subsets: ["latin-ext"]
 });
 
 const siteName = "Zelzele";
@@ -27,28 +29,28 @@ export const metadata: Metadata = {
     url,
     siteName,
     locale,
-    type: "website",
+    type: "website"
   },
   twitter: {
     card: "summary_large_image",
     title,
     description,
-    site: "@ademilter",
+    site: "@ademilter"
   },
   robots: {
     index: true,
-    follow: true,
+    follow: true
   },
   themeColor: "#ffffff",
   icons: {
     icon: "/icons-192.png",
-    apple: "/icons-192.png",
+    apple: "/icons-192.png"
   },
-  manifest: `${url}/manifest.json`,
+  manifest: `${url}/manifest.json`
 };
 
 export default function RootLayout({
-  children,
+  children
 }: {
   children: React.ReactNode;
 }) {

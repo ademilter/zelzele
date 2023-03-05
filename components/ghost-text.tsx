@@ -1,5 +1,6 @@
-import { cx } from "@/lib/utils";
 import { ReactNode } from "react";
+
+import { cx } from "@/lib/utils";
 
 interface Props {
   children: ReactNode;

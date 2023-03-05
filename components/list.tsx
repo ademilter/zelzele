@@ -1,18 +1,19 @@
 "use client";
 
-import { useEffect } from "react";
 import { DateTime } from "luxon";
-import Filter from "@/components/filter";
+import { useEffect } from "react";
+
 import Day from "@/components/day";
+import Filter from "@/components/filter";
 import Row from "@/components/row";
 import RowSkeleton from "@/components/row-skeleton";
-import store from "@/stores/list";
 import { Item } from "@/lib/types";
+import store from "@/stores/list";
 
 export default function List() {
   const { setFilter, fetchData, filter, loading } = store();
-  const hasData = store((state) => state.hasData());
-  const groupByDay = store((state) => state.groupByDay());
+  const hasData = store(state => state.hasData());
+  const groupByDay = store(state => state.groupByDay());
 
   useEffect(() => {
     const cacheFilter = localStorage.getItem("filter");
@@ -23,7 +24,6 @@ export default function List() {
   }, []);
 
   useEffect(() => {
-    console.log("filter", filter);
     localStorage.setItem("filter", JSON.stringify(filter));
   }, [filter]);
 
@@ -32,12 +32,12 @@ export default function List() {
       {loading ? (
         <div>
           <Day date={DateTime.now().toISO()} />
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((i) => (
+          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(i => (
             <RowSkeleton key={i} />
           ))}
         </div>
       ) : hasData ? (
-        Object.keys(groupByDay).map((key) => {
+        Object.keys(groupByDay).map(key => {
           const rows = groupByDay[key];
           return (
             <div key={key}>

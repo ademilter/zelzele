@@ -7,7 +7,7 @@ interface Props {
 export default function Day({ date }: Props) {
   const dateTime = DateTime.fromISO(date, {
     zone: "Europe/Istanbul",
-    locale: "tr",
+    locale: "tr"
   });
 
   return (
