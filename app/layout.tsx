@@ -59,7 +59,7 @@ export default function RootLayout({
       lang="tr"
       className={cx("overflow-y-scroll scroll-smooth", inter.variable)}
     >
-      <body className="dark:bg-zinc-950 bg-white leading-normal text-zinc-600 antialiased dark:text-zinc-300">
+      <body className="leading-normal antialiased">
         <main>{children}</main>
         <AnalyticsWrapper />
       </body>

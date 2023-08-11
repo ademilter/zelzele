@@ -7,3 +7,7 @@
       @apply text-left
   }
 }
+
+html, body {
+    @apply dark:bg-zinc-950 bg-white text-zinc-600 dark:text-zinc-300;
+}
