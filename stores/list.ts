@@ -1,5 +1,5 @@
 import { DateTime } from "luxon";
-import create from "zustand";
+import { create } from "zustand";
 
 import { Data, DataByDay, Filter, Item } from "@/lib/types";
 
