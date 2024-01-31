@@ -5,14 +5,14 @@ export default function Filter() {
   const { setFilter, fetchData, filter, loading } = store();
 
   return (
-    <div className="fixed inset-x-0 bottom-0 z-50 flex items-center justify-center bg-gradient-to-t from-zinc-400 pt-20 pb-10">
+    <div className="dark:from-zinc-950 fixed inset-x-0 bottom-0 z-50 flex items-center justify-center bg-gradient-to-t from-zinc-400 pb-10 pt-20">
       {/* container */}
       <div className="flex flex-nowrap items-center justify-center gap-3">
         {/* city */}
         {filter?.city && (
           <button
-            className="flex h-12 w-28 select-none items-center gap-1.5 rounded-full
-            bg-white px-4 font-semibold shadow-lg md:w-auto"
+            className="dark:bg-zinc-950 flex h-12 w-28 select-none items-center gap-1.5
+            rounded-full bg-white px-4 font-semibold shadow-lg md:w-auto"
             onClick={() =>
               setFilter({
                 ...filter,
@@ -40,7 +40,7 @@ export default function Filter() {
         )}
 
         {/* filter */}
-        <div className="flex h-12 items-center rounded-full bg-white p-1 shadow-lg">
+        <div className="dark:bg-zinc-950 flex h-12 items-center rounded-full bg-white p-1 shadow-lg">
           {[1, 4].map(i => {
             const isSelected = filter.hide === i;
 
@@ -54,7 +54,8 @@ export default function Filter() {
                 className={cx(
                   "relative inline-flex h-full cursor-pointer select-none items-center",
                   "rounded-full px-4 font-medium transition-all",
-                  isSelected && "bg-zinc-700 text-white"
+                  isSelected &&
+                    "bg-zinc-700 text-white dark:bg-zinc-200 dark:text-black"
                 )}
                 onClick={() =>
                   setFilter({
@@ -66,7 +67,7 @@ export default function Filter() {
                 <span className={cx("relative z-10 inline-flex items-center")}>
                   {i !== 1 && (
                     <svg
-                      className="-mr-1 -ml-1.5 opacity-50"
+                      className="-ml-1.5 -mr-1 opacity-50"
                       width="20"
                       viewBox="0 0 24 24"
                       strokeWidth="2"
@@ -87,14 +88,15 @@ export default function Filter() {
 
         {/* refresh */}
         <button
-          className="flex h-12 w-12 shrink-0 cursor-pointer rounded-full bg-white p-1 shadow-lg"
+          className="dark:bg-zinc-950 flex h-12 w-12 shrink-0 cursor-pointer rounded-full bg-white p-1 shadow-lg"
           onClick={fetchData}
           aria-label="Yenile"
         >
           <span
             className={cx(
               "flex h-full w-full items-center justify-center rounded-full transition-all",
-              loading && "animate-spin bg-zinc-700 text-white"
+              loading &&
+                "animate-spin bg-zinc-700 text-white dark:bg-zinc-200 dark:text-black"
             )}
             style={{
               animationDirection: "reverse"

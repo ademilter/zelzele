@@ -10,13 +10,13 @@ export default function Row({ item }: Props) {
   const { setFilter, filter } = store();
 
   const styleContainer = {
-    "1": "from-zinc-100 bg-gradient-to-l text-zinc-900", // 1-1,9
-    "2": "from-zinc-100 bg-gradient-to-l text-zinc-900", // 2-2,9
-    "3": "from-zinc-100 bg-gradient-to-l text-zinc-900", // 3-3,9
-    "4": "from-orange-100 bg-gradient-to-l text-orange-900", // 4-4,9
-    "5": "from-pink-100 bg-gradient-to-l text-pink-900", // 5-5,9
-    "6": "from-red-100 bg-gradient-to-l text-red-900", // 6-6,9
-    "7": "from-red-100 bg-gradient-to-l text-red-900" // 7+
+    "1": "from-zinc-100 dark:from-zinc-900 bg-gradient-to-l text-zinc-900 dark:text-zinc-100", // 1-1,9
+    "2": "from-zinc-100 dark:from-zinc-900 bg-gradient-to-l text-zinc-900 dark:text-zinc-100", // 2-2,9
+    "3": "from-zinc-100 dark:from-zinc-900 bg-gradient-to-l text-zinc-900 dark:text-zinc-100", // 3-3,9
+    "4": "from-orange-100 dark:from-orange-900 bg-gradient-to-l text-orange-900 dark:text-orange-100", // 4-4,9
+    "5": "from-pink-100 dark:from-pink-900 bg-gradient-to-l text-pink-900 dark:text-pink-100", // 5-5,9
+    "6": "from-red-100 dark:from-red-900 bg-gradient-to-l text-red-900 dark:text-red-100", // 6-6,9
+    "7": "from-red-100 dark:from-red-900 bg-gradient-to-l text-red-900 dark:text-red-100" // 7+
   };
 
   return (
@@ -31,7 +31,7 @@ export default function Row({ item }: Props) {
           {/**/}
 
           {/* magnitude */}
-          <div className="rounded-xl bg-black bg-opacity-5 px-2 py-1">
+          <div className="rounded-xl bg-black/5 px-2 py-1 dark:bg-white/10">
             <span className="text-xl font-bold tabular-nums md:text-2xl">
               {Number(item.magnitude).toFixed(1)}
             </span>
