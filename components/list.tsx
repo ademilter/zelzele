@@ -42,8 +42,8 @@ export default function List() {
           return (
             <div key={key}>
               {rows.length > 0 && <Day date={key} />}
-              {rows.map((row: Item) => (
-                <Row key={row.id} item={row} />
+              {rows.map((row: Item, rowIndex) => (
+                <Row key={`${rowIndex}`} item={row} />
               ))}
             </div>
           );
