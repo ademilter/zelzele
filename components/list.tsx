@@ -50,10 +50,8 @@ export default function List() {
         })
       ) : (
         <div className="py-20 text-center">
-          <h4 className="text-lg font-medium">
-            Bu büyüklükte deprem yok (çok şükür)
-          </h4>
-          <p className="opacity-60">Son gerçekleşen 100 deprem arasında.</p>
+          <h4 className="text-lg font-medium">Çok şükür</h4>
+          <p className="opacity-60">Son 100 kayıtta bu büyüklükte bir deprem bulunamadı.</p>
         </div>
       )}
 
