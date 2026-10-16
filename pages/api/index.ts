@@ -1,15 +1,12 @@
 import { DateTime } from "luxon";
+import type { NextApiRequest, NextApiResponse } from "next";
 
-export const config = {
-  runtime: "edge"
-};
-
-export default async function handler() {
-  // const params = new URL(req.url).searchParams;
-  // const start = params.get("start");
-
+export default async function handler(
+  _req: NextApiRequest,
+  res: NextApiResponse
+) {
   try {
-    const format = "yyyy-LL-dd HH:mm:ss";
+    const format = "yyyy-MM-dd'T'HH:mm:ss";
     const date = DateTime.now();
     const start = date.minus({ days: 2 }).toFormat(format);
     const end = date.toFormat(format);
@@ -19,27 +16,26 @@ export default async function handler() {
     url.searchParams.append("end", end);
     url.searchParams.append("orderby", "timedesc");
     url.searchParams.append("minmag", "3");
-    // url.searchParams.append("limit", limit);
 
     const response = await fetch(url.toString());
+
+    if (!response.ok) {
+      return res.status(502).json({
+        error: `AFAD API HTTP ${response.status}`
+      });
+    }
+
     const data = await response.json();
 
-    return new Response(
-      JSON.stringify({
-        lastUpdate: new Date().toISOString(),
-        data
-      }),
-      {
-        status: 200,
-        headers: {
-          "Cache-Control": "s-maxage=60"
-        }
-      }
-    );
+    res.setHeader("Cache-Control", "s-maxage=60");
+
+    return res.status(200).json({
+      lastUpdate: new Date().toISOString(),
+      data
+    });
   } catch (error) {
-    if (error instanceof Error) {
-      return new Response(error.message, { status: 500 });
-    }
-    return new Response("Something went wrong", { status: 500 });
+    return res.status(502).json({
+      error: "AFAD API verileri alınamadı."
+    });
   }
 }
